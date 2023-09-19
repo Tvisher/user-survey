@@ -1,0 +1,38 @@
+.low-fade-enter-active,
+.low-fade-leave-active {
+  transition: opacity 0.5s ease-in-out, transform 0.4s ease-in-out;
+}
+
+.low-fade-enter-from,
+.low-fade-leave-to {
+  opacity: 0;
+}
+
+.low-fade-enter-from {
+  transform: translateY(50px);
+}
+.low-fade-leave-to {
+  transform: translateY(-50px);
+}
+
+.btn-fade-enter-active,
+.btn-fade-leave-active {
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.btn-fade-enter-from,
+.btn-fade-leave-to {
+  opacity: 0;
+}
+
+.btn-fade-enter-from {
+  transform: translateX(10px);
+}
+.btn-fade-leave-to {
+  transform: translateX(-10px);
+}
+
+.poll-item {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,0 +1,40 @@
+{
+  "name": "survey-constructor",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "@vueform/slider": "^2.1.7",
+    "@vuepic/vue-datepicker": "^5.4.0",
+    "@vueup/vue-quill": "^1.2.0",
+    "axios": "^1.4.0",
+    "core-js": "^3.8.3",
+    "quill-delta-to-html": "^0.12.1",
+    "uuid": "^9.0.0",
+    "vue": "^3.2.13",
+    "vue-draggable-next": "^2.2.1",
+    "vue-imask": "^7.1.3",
+    "vue-router": "^4.2.4",
+    "vue-select": "^4.0.0-beta.6",
+    "vue3-dropzone": "^2.0.1",
+    "vue3-popper": "^1.5.0",
+    "vue3-slide-up-down": "^2.0.1",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "sass": "^1.64.0",
+    "sass-loader": "^13.3.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
