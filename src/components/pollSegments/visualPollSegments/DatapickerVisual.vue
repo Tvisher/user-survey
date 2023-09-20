@@ -13,11 +13,13 @@
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import { mapMutations } from "vuex";
 
 export default {
   components: { VueDatePicker },
   props: {
     dateData: { type: Object },
+    pollItemId: String,
   },
   data() {
     return {
@@ -36,7 +38,18 @@ export default {
       return `${day}.${month}.${year}`;
     },
   },
-  methods: {},
+  methods: {
+    ...mapMutations(["setUserAnswer"]),
+  },
+  watch: {
+    date() {
+      const selectedDate = this.date ? [this.date] : [];
+      this.setUserAnswer({
+        questionId: this.pollItemId,
+        userAnswer: selectedDate,
+      });
+    },
+  },
 };
 </script>
 

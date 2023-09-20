@@ -12,7 +12,6 @@
     :pollItemName="question.typeName"
     :pollItemData="question.data"
   />
-  <pre></pre>
 </template>
 
 <script>
@@ -40,6 +39,6 @@ export default {
   line-height: 140%;
 }
 .poll-item__name:before {
-  display: none;
+  display: none !important;
 }
 </style>

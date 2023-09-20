@@ -142,13 +142,13 @@ export default {
             questionId: this.pollItemId,
             userAnswer: [...this.customFields],
           });
-          this.setCustomFildsValid(true);
+          // this.setCustomFildsValid(true);
         } else {
           this.setUserAnswer({
             questionId: this.pollItemId,
             userAnswer: [],
           });
-          this.setCustomFildsValid(false);
+          // this.setCustomFildsValid(false);
         }
       },
       deep: true,

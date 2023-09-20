@@ -17,6 +17,7 @@
 
 <script>
 import Slider from "@vueform/slider";
+import { mapMutations } from "vuex";
 
 export default {
   components: { Slider },
@@ -43,6 +44,8 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setUserAnswer"]),
+
     strToNum(value) {
       return +String(value).replace(/[^0-9]/g, "");
     },
@@ -60,6 +63,19 @@ export default {
     minParam = this.strToNum(minParam);
     maxParam = this.strToNum(maxParam);
     this.defaultValues = [minParam, maxParam];
+  },
+  watch: {
+    defaultValues() {
+      this.setUserAnswer({
+        questionId: this.pollItemId,
+        userAnswer: [
+          {
+            start: this.defaultValues[0],
+            end: this.defaultValues[1],
+          },
+        ],
+      });
+    },
   },
 };
 </script>

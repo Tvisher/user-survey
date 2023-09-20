@@ -48,6 +48,7 @@
     <app-datapicker-visual
       v-if="pollItemType === 'date'"
       :dateData="pollItemData.dateData"
+      :pollItemId="pollItemId"
     />
     <app-custom-fields-visual
       v-if="pollItemType === 'custom-fields'"

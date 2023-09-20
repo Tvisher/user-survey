@@ -67,7 +67,7 @@ export default {
   }
 }
 #app {
-  padding-bottom: 0;
+  padding-bottom: 0 !important;
 }
 * {
   font-family: Montserrat;

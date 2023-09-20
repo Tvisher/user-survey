@@ -11,6 +11,7 @@ export default createStore({
   state: {
     appDataLoaded: false,
     // showCurrentAnswer: false,
+    // getValidate: false,
     surveyQuestionsPages: [],
     currentPadeId: '',
     appSettings: {},
@@ -18,7 +19,17 @@ export default createStore({
     startTime: 0,
   },
   getters: {
-    getCurrentPage: (state) => (state.surveyQuestionsPages.find(page => page.id === state.currentPadeId))
+    getCurrentPage: (state) => (state.surveyQuestionsPages.find(page => page.id === state.currentPadeId)),
+    questionIsHasAnswer: (state) => questionId => {
+      const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
+      const question = questionPage.pageData.find(answ => answ.questionId === questionId);
+      return question.userAnswer.length > 0
+    },
+    // currenPageHasAllAnswers: state => {
+    //   const currentPage = state.userAnswers.find(page => page.pageId === state.currentPadeId);
+    //   console.log(currentPage.pageData.every(answer => answer.userAnswer.length > 0));
+    //   return currentPage.pageData.every(answer => answer.userAnswer.length > 0);
+    // }
   },
   mutations: {
     setSurveyQuestionsData(state, payload) {
@@ -58,6 +69,13 @@ export default createStore({
       document.body.style.setProperty("--app-text-color", state.appSettings.appTextColor.value);
       state.appDataLoaded = true;
     },
+
+    setUserAnswer(state, { questionId, userAnswer }) {
+      const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
+      const question = questionPage.pageData.find(answ => answ.questionId === questionId);
+      question.userAnswer = userAnswer;
+      console.log(question);
+    }
 
   },
   actions: {

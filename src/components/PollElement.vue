@@ -13,11 +13,13 @@
       :pollItemType="pollItemType"
       :pollItemData="pollItemData"
     />
+    {{ questionHasAnswer }}
   </div>
 </template>
 
 <script>
 import AppVisualPollBody from "./pollSegments/VisualPollBody.vue";
+import { mapGetters } from "vuex";
 
 export default {
   components: {
@@ -37,6 +39,10 @@ export default {
   computed: {
     indexNumber() {
       return this.pollNumber + 1;
+    },
+    ...mapGetters(["questionIsHasAnswer"]),
+    questionHasAnswer() {
+      return this.questionIsHasAnswer(this.pollItemId);
     },
   },
   methods: {},
