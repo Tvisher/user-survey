@@ -10,6 +10,7 @@ const appType = document.querySelector('#app').dataset.pollType;
 export default createStore({
   state: {
     appDataLoaded: false,
+    // showCurrentAnswer: false,
     surveyQuestionsPages: [],
     currentPadeId: '',
     appSettings: {},
@@ -21,9 +22,34 @@ export default createStore({
   },
   mutations: {
     setSurveyQuestionsData(state, payload) {
-      console.log(payload);
+      // console.log(payload);
       state.surveyQuestionsPages = payload;
       state.currentPadeId = state.surveyQuestionsPages[0].id;
+
+      const userAnswersList = payload
+        .map(page => {
+          const pageAnswersList = page.pollList.map(item => {
+            const hasCurrentAnswers = item.data.hasOwnProperty('optionsData') && item.data.optionsData.hasOwnProperty('currentAnswerId') && item.data.optionsData.currentAnswerId.length > 0;
+            let currentAnswers = hasCurrentAnswers ? item.data.optionsData.currentAnswerId : [];
+            let optionsList = item.data.hasOwnProperty('optionsData') ? item.data.optionsData.optionsList : [];
+            if (item.type === 'ranging') {
+              currentAnswers = item.data.optionsData.optionsList.map(item => item.id);
+            }
+            return {
+              questionType: item.type,
+              questionId: item.id,
+              optionsList,
+              correctAnswer: currentAnswers,
+              userAnswer: [],
+            }
+          });
+          return {
+            pageId: page.id,
+            pageData: pageAnswersList,
+          }
+        })
+
+      state.userAnswers = userAnswersList;
     },
 
     setSurveyAppSettings(state, payload) {
