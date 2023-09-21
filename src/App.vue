@@ -1,31 +1,36 @@
 <template>
-  <div v-if="appDataLoaded" class="polls-container">
-    <app-start-page :appSettings="appSettings" />
-    <div class="polls-pagination">
-      <div class="polls-pagination__wrapper">
-        <div
-          class="polls-page-btn"
-          v-for="(page, index) in surveyQuestionsPages"
-          :key="page.id"
-          :class="{ active: page.id === getCurrentPage.id }"
-        >
-          {{ index + 1 }}
+  <div v-if="appDataLoaded">
+    <div class="polls-container">
+      {{ isLastPage }}
+      <app-start-page :appSettings="appSettings" />
+      <div class="polls-pagination">
+        <div class="polls-pagination__wrapper">
+          <div
+            class="polls-page-btn"
+            v-for="(page, index) in surveyQuestionsPages"
+            :key="page.id"
+            :class="{ active: page.id === getCurrentPage.id }"
+          >
+            {{ index + 1 }}
+          </div>
+        </div>
+      </div>
+      <transition name="fade" mode="out-in">
+        <app-survey-page :pageData="getCurrentPage" :key="getCurrentPage.id" />
+      </transition>
+      <div class="polls-pagination next-btn-wrapper">
+        <div class="polls-pagination__wrapper">
+          <button class="app-btn btn" @click="nextPageOrFinish">
+            {{ nextBtnText }}
+          </button>
         </div>
       </div>
     </div>
-    <div class="poll-pages">
-      <app-survey-page :pageData="getCurrentPage" />
-    </div>
-    <div class="polls-pagination next-btn-wrapper">
-      <div class="polls-pagination__wrapper">
-        <button class="app-btn btn">Далее</button>
+    <div class="quiz-app__footer">
+      <div class="quiz-app__footer-content">
+        <div class="quiz-app__footer-text">Создано в</div>
+        <div class="quiz-app__footer-logo"></div>
       </div>
-    </div>
-  </div>
-  <div class="quiz-app__footer">
-    <div class="quiz-app__footer-content">
-      <div class="quiz-app__footer-text">Создано в</div>
-      <div class="quiz-app__footer-logo"></div>
     </div>
   </div>
 </template>
@@ -33,21 +38,83 @@
 <script>
 import AppSurveyPage from "./components/SurveyPage.vue";
 import AppStartPage from "./components/StartPage";
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters, mapMutations } from "vuex";
+import { nextTick } from "vue";
 
 export default {
   components: { AppSurveyPage, AppStartPage },
   name: "App",
-
-  methods: {},
   computed: {
     ...mapState({
       appDataLoaded: (state) => state.appDataLoaded,
       surveyQuestionsPages: (state) => state.surveyQuestionsPages,
       appSettings: (state) => state.appSettings,
+      userAnswers: (state) => state.userAnswers,
     }),
     ...mapGetters(["getCurrentPage"]),
+    isLastPage() {
+      return (
+        this.surveyQuestionsPages[this.surveyQuestionsPages.length - 1].id ===
+        this.getCurrentPage.id
+      );
+    },
+    nextBtnText() {
+      return this.isLastPage ? "Завершить опрос" : "Далее";
+    },
   },
+  methods: {
+    ...mapMutations([
+      "togglePageValidate",
+      "toggleCustomFieldsValidate",
+      "blockedPage",
+      "setCurrentPageId",
+    ]),
+
+    nextPageOrFinish() {
+      const currentPageId = this.getCurrentPage.id;
+      this.togglePageValidate(true);
+      this.toggleCustomFieldsValidate(true);
+      const currentPage = this.userAnswers.find(
+        (page) => page.pageId === currentPageId
+      );
+      const pageHasAllAnswers = currentPage.pageData.every(
+        (answer) => answer.userAnswer.length > 0
+      );
+      if (!pageHasAllAnswers) {
+        nextTick().then(() => {
+          const emptyAnswer = document.querySelectorAll(
+            ".poll-item.questionEmptyAnswer"
+          );
+          if (emptyAnswer.length > 0) {
+            emptyAnswer[0].scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }
+        });
+        return;
+      } else {
+        const currentIndex = this.surveyQuestionsPages.findIndex(
+          (item) => item.id === currentPageId
+        );
+        const nextPage = this.surveyQuestionsPages[currentIndex + 1];
+        this.togglePageValidate(false);
+        this.toggleCustomFieldsValidate(false);
+        this.blockedPage({
+          pageId: currentPageId,
+          value: true,
+        });
+        if (nextPage) {
+          this.setCurrentPageId(nextPage.id);
+          window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+          });
+        }
+      }
+    },
+  },
+
   beforeCreate() {
     this.$store
       .dispatch("getAppDataFromServer")
@@ -67,6 +134,7 @@ export default {
   }
 }
 #app {
+  min-height: 100vh;
   padding-bottom: 0 !important;
 }
 * {

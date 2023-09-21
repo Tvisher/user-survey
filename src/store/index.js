@@ -11,7 +11,8 @@ export default createStore({
   state: {
     appDataLoaded: false,
     // showCurrentAnswer: false,
-    // getValidate: false,
+    getValidate: false,
+    getPageValidate: false,
     surveyQuestionsPages: [],
     currentPadeId: '',
     appSettings: {},
@@ -56,6 +57,7 @@ export default createStore({
           });
           return {
             pageId: page.id,
+            pageIsBlocked: false,
             pageData: pageAnswersList,
           }
         })
@@ -72,10 +74,26 @@ export default createStore({
 
     setUserAnswer(state, { questionId, userAnswer }) {
       const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
+      if (questionPage.pageIsBlocked) {
+        return
+      }
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
       question.userAnswer = userAnswer;
       console.log(question);
-    }
+    },
+
+    togglePageValidate(state, value) {
+      state.getPageValidate = value
+    },
+    toggleCustomFieldsValidate(state, value) {
+      state.getValidate = value
+    },
+    blockedPage(state, { pageId, value }) {
+      state.userAnswers.find(page => page.pageId === pageId).pageIsBlocked = value;
+    },
+    setCurrentPageId(state, id) {
+      state.currentPadeId = id
+    },
 
   },
   actions: {

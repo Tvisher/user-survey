@@ -1,30 +1,43 @@
 <template>
-  <p class="page-description">
-    {{ pageData.pageComment }}
-  </p>
+  <div class="poll-pages" :class="{ pageIsBlocked }">
+    <p class="page-description">
+      {{ pageData.pageComment }}
+    </p>
 
-  <app-poll-element
-    v-for="(question, index) in pagePollList"
-    :pollNumber="index"
-    :key="question.id"
-    :pollItemId="question.id"
-    :pollItemType="question.type"
-    :pollItemName="question.typeName"
-    :pollItemData="question.data"
-  />
+    <app-poll-element
+      v-for="(question, index) in pagePollList"
+      :pollNumber="index"
+      :key="question.id"
+      :pollItemId="question.id"
+      :pollItemType="question.type"
+      :pollItemName="question.typeName"
+      :pollItemData="question.data"
+      :class="{ pageIsBlocked }"
+    />
+  </div>
 </template>
 
 <script>
 import AppPollElement from "./PollElement.vue";
+import { mapState } from "vuex";
 
 export default {
-  props: { pageData: { type: Object } },
+  props: {
+    pageData: { type: Object },
+  },
   components: {
     AppPollElement,
   },
   computed: {
+    ...mapState({
+      userAnswers: (state) => state.userAnswers,
+    }),
     pagePollList() {
       return this.pageData.pollList;
+    },
+    pageIsBlocked() {
+      return this.userAnswers.find((page) => page.pageId === this.pageData.id)
+        .pageIsBlocked;
     },
   },
 };
@@ -40,5 +53,14 @@ export default {
 }
 .poll-item__name:before {
   display: none !important;
+}
+.pageIsBlocked {
+  pointer-events: none !important;
+}
+.poll-item.pageIsBlocked *::selection {
+  background-color: transparent;
+}
+.poll-item__name {
+  cursor: default !important;
 }
 </style>

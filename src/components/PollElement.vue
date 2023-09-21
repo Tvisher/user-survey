@@ -1,5 +1,10 @@
 <template>
-  <div class="poll-item">
+  <div
+    class="poll-item"
+    :class="{
+      questionEmptyAnswer: showError,
+    }"
+  >
     <div class="poll-item__head">
       <div class="poll-item__head-wrapper">
         <div class="poll-item__name">
@@ -13,13 +18,15 @@
       :pollItemType="pollItemType"
       :pollItemData="pollItemData"
     />
-    {{ questionHasAnswer }}
+    <span class="empty-error" v-if="showError">
+      Необходимо ответить на вопрос
+    </span>
   </div>
 </template>
 
 <script>
 import AppVisualPollBody from "./pollSegments/VisualPollBody.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 
 export default {
   components: {
@@ -40,16 +47,20 @@ export default {
     indexNumber() {
       return this.pollNumber + 1;
     },
+    ...mapState(["getPageValidate"]),
     ...mapGetters(["questionIsHasAnswer"]),
     questionHasAnswer() {
       return this.questionIsHasAnswer(this.pollItemId);
+    },
+    showError() {
+      return this.getPageValidate && !this.questionHasAnswer;
     },
   },
   methods: {},
 };
 </script>
 
-<style>
+<style lang="scss">
 .poll-item__counter {
   color: #002033;
   font-size: 23px;
@@ -60,5 +71,19 @@ export default {
 
 .sub-btn {
   margin-top: 20px;
+}
+.empty-error {
+  color: red;
+  font-size: 14px;
+}
+.poll-item {
+  border: 1px solid #fff;
+
+  &.questionEmptyAnswer {
+    border-color: red;
+    .poll-item__title {
+      color: red;
+    }
+  }
 }
 </style>
