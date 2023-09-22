@@ -13,7 +13,7 @@
 <script>
 import VueDatePicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   components: { VueDatePicker },
@@ -27,6 +27,8 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["getCurrentAnswer"]),
+
     isRangeDatapicker() {
       return this.dateData.range;
     },
@@ -49,6 +51,11 @@ export default {
         userAnswer: selectedDate,
       });
     },
+  },
+  beforeMount() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.date = this.getCurrentAnswer(this.pollItemId)[0];
+    }
   },
 };
 </script>

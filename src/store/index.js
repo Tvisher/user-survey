@@ -35,7 +35,6 @@ export default createStore({
   },
   mutations: {
     setSurveyQuestionsData(state, payload) {
-      // console.log(payload);
       state.surveyQuestionsPages = payload;
       state.currentPadeId = state.surveyQuestionsPages[0].id;
 
@@ -74,6 +73,10 @@ export default createStore({
     },
 
     setUserAnswer(state, { questionId, userAnswer }) {
+      if (state.surveyCompleted) {
+        return
+      }
+      console.log(userAnswer);
       const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
       if (questionPage.pageIsBlocked) {
         return

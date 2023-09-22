@@ -54,7 +54,7 @@
 
 <script>
 import { IMaskDirective } from "vue-imask";
-import { mapMutations, mapState } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 function validateEmail(email) {
   const re =
@@ -84,6 +84,7 @@ export default {
   },
   computed: {
     ...mapState(["getValidate"]),
+    ...mapGetters(["getCurrentAnswer"]),
   },
   methods: {
     removeErr(e) {
@@ -120,17 +121,6 @@ export default {
     },
     ...mapMutations(["setUserAnswer", "setCustomFildsValid"]),
   },
-  beforeMount() {
-    this.customFields = this.optionsData.optionsList.map((item) => {
-      return {
-        id: item.id,
-        type: item.type,
-        value: item.value,
-        answer: "",
-        filled: false,
-      };
-    });
-  },
   watch: {
     customFields: {
       handler() {
@@ -153,6 +143,22 @@ export default {
       },
       deep: true,
     },
+  },
+
+  beforeMount() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.customFields = [...this.getCurrentAnswer(this.pollItemId)];
+    } else {
+      this.customFields = this.optionsData.optionsList.map((item) => {
+        return {
+          id: item.id,
+          type: item.type,
+          value: item.value,
+          answer: "",
+          filled: false,
+        };
+      });
+    }
   },
 };
 </script>
