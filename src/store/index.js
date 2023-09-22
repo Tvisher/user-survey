@@ -10,7 +10,7 @@ const appType = document.querySelector('#app').dataset.pollType;
 export default createStore({
   state: {
     appDataLoaded: false,
-    // showCurrentAnswer: false,
+    showCurrentAnswer: false,
     getValidate: false,
     getPageValidate: false,
     surveyQuestionsPages: [],
@@ -22,6 +22,11 @@ export default createStore({
   },
   getters: {
     getCurrentPage: (state) => (state.surveyQuestionsPages.find(page => page.id === state.currentPadeId)),
+    getCurrentAnswer: (state) => questionId => {
+      const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
+      const question = questionPage.pageData.find(answ => answ.questionId === questionId);
+      return question.userAnswer
+    },
     questionIsHasAnswer: (state) => questionId => {
       const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
@@ -95,6 +100,9 @@ export default createStore({
     },
     compliteSurvey(state) {
       state.surveyCompleted = true;
+    },
+    setShowCurrentAnswer(state, value) {
+      state.showCurrentAnswer = value;
     }
 
   },

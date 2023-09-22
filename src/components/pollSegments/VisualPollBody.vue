@@ -65,7 +65,6 @@ import AppMultiChoiseVariant from "./visualPollSegments/MultiChioseVariant.vue";
 import AppSingleSelect from "./visualPollSegments/SingleSelect.vue";
 import AppMultiSelect from "./visualPollSegments/MultiSelect.vue";
 import AppRangeSlider from "./visualPollSegments/RangeSlider.vue";
-import AppPairRankingVisual from "./visualPollSegments/PairRankingVisual.vue";
 import AppRangingVisual from "./visualPollSegments/RangingVisual.vue";
 import AppDatapickerVisual from "./visualPollSegments/DatapickerVisual.vue";
 import AppCustomFieldsVisual from "./visualPollSegments/CustomFieldsVisual.vue";
@@ -77,7 +76,6 @@ export default {
     AppSingleSelect,
     AppMultiSelect,
     AppRangeSlider,
-    AppPairRankingVisual,
     AppRangingVisual,
     AppDatapickerVisual,
     AppCustomFieldsVisual,

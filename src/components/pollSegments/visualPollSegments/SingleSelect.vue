@@ -14,7 +14,7 @@
 
 <script>
 import { createPopper } from "@popperjs/core";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   data() {
@@ -33,6 +33,8 @@ export default {
     ...mapState({
       showCurrentAnswer: (state) => state.showCurrentAnswer,
     }),
+    ...mapGetters(["getCurrentAnswer"]),
+
     isCorretnAnswer() {
       if (
         this.optionsData.currentAnswerId.length > 0 &&
@@ -84,7 +86,7 @@ export default {
       });
     },
   },
-  mounted() {
+  beforeMount() {
     this.optionsListForSelect = this.optionsData.optionsList.reduce(
       (acc, item) => {
         const newItem = {
@@ -96,6 +98,10 @@ export default {
       },
       []
     );
+
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.selectedOptionId = this.getCurrentAnswer(this.pollItemId)[0];
+    }
   },
 };
 </script>

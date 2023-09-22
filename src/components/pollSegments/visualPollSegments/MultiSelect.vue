@@ -1,22 +1,25 @@
 <template>
-  <v-select
-    class="multi-select"
-    multiple
-    :pushTags="true"
-    :options="optionsListForSelect"
-    :reduce="(option) => option.id"
-    v-model="selectedOptionId"
-    :placeholder="placeholder"
-    append-to-body
-    :calculate-position="withPopper"
-  >
-    <template #no-options> Ничего не найдено </template>
-  </v-select>
+  <div :ref="`${pollItemId}-multiSelectComponent`">
+    <v-select
+      class="multi-select"
+      multiple
+      :pushTags="true"
+      :options="optionsListForSelect"
+      :reduce="(option) => option.id"
+      v-model="selectedOptionId"
+      :placeholder="placeholder"
+      append-to-body
+      :calculate-position="withPopper"
+    >
+      <template #no-options> Ничего не найдено </template>
+    </v-select>
+  </div>
 </template>
 
 <script>
 import { createPopper } from "@popperjs/core";
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
+import { nextTick } from "vue";
 
 export default {
   data() {
@@ -35,6 +38,7 @@ export default {
     ...mapState({
       showCurrentAnswer: (state) => state.showCurrentAnswer,
     }),
+    ...mapGetters(["getCurrentAnswer"]),
   },
   methods: {
     // dropdownShouldOpen: () => true,
@@ -67,27 +71,6 @@ export default {
     ...mapMutations(["setUserAnswer"]),
   },
   watch: {
-    showCurrentAnswer() {
-      if (this.optionsData.currentAnswerId.length > 0) {
-        const currentTextValues = this.optionsListForSelect
-          .filter((item) => {
-            if (this.optionsData.currentAnswerId.includes(item.id)) {
-              return item;
-            }
-          })
-          .map((item) => item.label.toLowerCase());
-
-        const selectedOption = document.querySelectorAll(".vs__selected");
-        selectedOption.forEach((item) => {
-          const selectedOptionText = item.textContent.toLowerCase();
-          if (currentTextValues.includes(selectedOptionText)) {
-            item.classList.add("correct");
-          } else {
-            item.classList.add("uncorrect");
-          }
-        });
-      }
-    },
     selectedOptionId() {
       this.setUserAnswer({
         questionId: this.pollItemId,
@@ -95,7 +78,7 @@ export default {
       });
     },
   },
-  mounted() {
+  beforeMount() {
     this.optionsListForSelect = this.optionsData.optionsList.reduce(
       (acc, item) => {
         const newItem = {
@@ -107,6 +90,36 @@ export default {
       },
       []
     );
+  },
+  mounted() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.selectedOptionId = [...this.getCurrentAnswer(this.pollItemId)];
+      nextTick().then(() => {
+        if (this.optionsData.currentAnswerId.length > 0) {
+          const currentTextValues = this.optionsListForSelect
+            .filter((item) => {
+              if (this.optionsData.currentAnswerId.includes(item.id)) {
+                return item;
+              }
+            })
+            .map((item) => item.label.toLowerCase());
+          const multiSelectParentElement =
+            this.$refs[`${this.pollItemId}-multiSelectComponent`];
+
+          const selectedOption =
+            multiSelectParentElement.querySelectorAll(".vs__selected");
+
+          selectedOption.forEach((item) => {
+            const selectedOptionText = item.textContent.toLowerCase();
+            if (currentTextValues.includes(selectedOptionText)) {
+              item.classList.add("correct");
+            } else {
+              item.classList.add("uncorrect");
+            }
+          });
+        }
+      });
+    }
   },
 };
 </script>

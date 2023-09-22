@@ -39,7 +39,9 @@
           </div>
         </div>
       </transition>
-      <app-end-page v-if="showEndPage" :appSettings="appSettings" />
+      <transition name="fade" mode="out-in">
+        <app-end-page v-if="showEndPage" :appSettings="appSettings" />
+      </transition>
     </div>
     <div class="quiz-app__footer">
       <div class="quiz-app__footer-content">
@@ -92,6 +94,7 @@ export default {
       "blockedPage",
       "setCurrentPageId",
       "compliteSurvey",
+      "setShowCurrentAnswer",
     ]),
     setPage(pageId) {
       if (!this.surveyСompleted) {
@@ -145,6 +148,7 @@ export default {
           this.compliteSurvey();
           this.showQuestions = false;
           this.showEndPage = true;
+          this.setShowCurrentAnswer(true);
         }
         window.scrollTo({
           top: 0,

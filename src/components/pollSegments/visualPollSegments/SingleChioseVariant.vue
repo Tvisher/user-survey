@@ -12,6 +12,7 @@
       <input
         class="single-choise-visual__input"
         type="radio"
+        :checked="option.id === checkedInputId"
         :name="pollItemId"
         @input="getChecket(option.id)"
       />
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   props: {
@@ -37,6 +38,7 @@ export default {
     ...mapState({
       showCurrentAnswer: (state) => state.showCurrentAnswer,
     }),
+    ...mapGetters(["getCurrentAnswer"]),
     correctAnswerId() {
       if (
         this.optionsData.currentAnswerId.length < 1 ||
@@ -57,6 +59,11 @@ export default {
         userAnswer: inputId,
       });
     },
+  },
+  beforeMount() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.checkedInputId = this.getCurrentAnswer(this.pollItemId)[0];
+    }
   },
 };
 </script>

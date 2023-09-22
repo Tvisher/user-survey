@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 import { VueDraggableNext } from "vue-draggable-next";
 
@@ -133,6 +133,8 @@ export default {
     ...mapState({
       showCurrentAnswer: (state) => state.showCurrentAnswer,
     }),
+    ...mapGetters(["getCurrentAnswer"]),
+
     pollItemsDragOptionsInSidebar() {
       return {
         animation: 200,
@@ -193,6 +195,13 @@ export default {
   },
 
   beforeMount() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      const userAnswerList = this.getCurrentAnswer(this.pollItemId).map((id) =>
+        this.optionsData.optionsList.find((item) => item.id === id)
+      );
+      this.optionsList = [...userAnswerList];
+    }
+
     const sortList = () => {
       this.optionsList = [...this.optionsData.optionsList].sort(
         () => Math.random() - 0.5

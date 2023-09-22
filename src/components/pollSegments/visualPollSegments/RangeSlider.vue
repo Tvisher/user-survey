@@ -17,7 +17,7 @@
 
 <script>
 import Slider from "@vueform/slider";
-import { mapMutations } from "vuex";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   components: { Slider },
@@ -29,6 +29,8 @@ export default {
     defaultValues: [0, 0],
   }),
   computed: {
+    ...mapGetters(["getCurrentAnswer"]),
+
     sliderDirection() {
       return this.rangeData.max > this.rangeData.min ? "ltr" : "rtl";
     },
@@ -63,6 +65,11 @@ export default {
     minParam = this.strToNum(minParam);
     maxParam = this.strToNum(maxParam);
     this.defaultValues = [minParam, maxParam];
+
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.defaultValues[0] = this.getCurrentAnswer(this.pollItemId)[0].start;
+      this.defaultValues[1] = this.getCurrentAnswer(this.pollItemId)[0].end;
+    }
   },
   watch: {
     defaultValues() {

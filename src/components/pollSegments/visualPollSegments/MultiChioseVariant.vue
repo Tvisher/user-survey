@@ -13,6 +13,7 @@
         class="single-choise-visual__input"
         type="checkbox"
         :name="pollItemId"
+        :checked="checkedInputs.includes(option.id)"
         @input="getChecket($event, option.id)"
       />
       <p class="single-choise-visual__text">{{ option.value }}</p>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapGetters } from "vuex";
 
 export default {
   props: {
@@ -37,6 +38,7 @@ export default {
     ...mapState({
       showCurrentAnswer: (state) => state.showCurrentAnswer,
     }),
+    ...mapGetters(["getCurrentAnswer"]),
     hasCorrectAnswer() {
       return (
         this.optionsData.currentAnswerId.length > 0 &&
@@ -66,6 +68,12 @@ export default {
         userAnswer: [...this.checkedInputs],
       });
     },
+  },
+
+  beforeMount() {
+    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+      this.checkedInputs = [...this.getCurrentAnswer(this.pollItemId)];
+    }
   },
 };
 </script>
