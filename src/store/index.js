@@ -18,6 +18,7 @@ export default createStore({
     appSettings: {},
     userAnswers: [],
     startTime: 0,
+    surveyCompleted: false,
   },
   getters: {
     getCurrentPage: (state) => (state.surveyQuestionsPages.find(page => page.id === state.currentPadeId)),
@@ -26,11 +27,6 @@ export default createStore({
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
       return question.userAnswer.length > 0
     },
-    // currenPageHasAllAnswers: state => {
-    //   const currentPage = state.userAnswers.find(page => page.pageId === state.currentPadeId);
-    //   console.log(currentPage.pageData.every(answer => answer.userAnswer.length > 0));
-    //   return currentPage.pageData.every(answer => answer.userAnswer.length > 0);
-    // }
   },
   mutations: {
     setSurveyQuestionsData(state, payload) {
@@ -78,8 +74,11 @@ export default createStore({
         return
       }
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
-      question.userAnswer = userAnswer;
-      console.log(question);
+      if (typeof userAnswer == 'string') {
+        question.userAnswer = [userAnswer];
+      } else {
+        question.userAnswer = [...userAnswer];
+      }
     },
 
     togglePageValidate(state, value) {
@@ -94,6 +93,9 @@ export default createStore({
     setCurrentPageId(state, id) {
       state.currentPadeId = id
     },
+    compliteSurvey(state) {
+      state.surveyCompleted = true;
+    }
 
   },
   actions: {

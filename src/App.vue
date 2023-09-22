@@ -1,7 +1,6 @@
 <template>
   <div v-if="appDataLoaded">
     <div class="polls-container">
-      {{ isLastPage }}
       <app-start-page :appSettings="appSettings" />
       <div class="polls-pagination">
         <div class="polls-pagination__wrapper">
@@ -9,22 +8,38 @@
             class="polls-page-btn"
             v-for="(page, index) in surveyQuestionsPages"
             :key="page.id"
-            :class="{ active: page.id === getCurrentPage.id }"
+            :class="{ active: page.id === getCurrentPage.id && showQuestions }"
+            @click="setPage(page.id)"
           >
             {{ index + 1 }}
+          </div>
+
+          <div
+            v-if="surveyСompleted"
+            class="app-btn btn"
+            :class="{ active: showEndPage }"
+            @click="getEndPage"
+          >
+            Итоговая страницца
           </div>
         </div>
       </div>
       <transition name="fade" mode="out-in">
-        <app-survey-page :pageData="getCurrentPage" :key="getCurrentPage.id" />
-      </transition>
-      <div class="polls-pagination next-btn-wrapper">
-        <div class="polls-pagination__wrapper">
-          <button class="app-btn btn" @click="nextPageOrFinish">
-            {{ nextBtnText }}
-          </button>
+        <div :key="getCurrentPage.id" v-if="showQuestions">
+          <app-survey-page :pageData="getCurrentPage" />
+          <div
+            class="polls-pagination next-btn-wrapper"
+            v-if="!surveyСompleted"
+          >
+            <div class="polls-pagination__wrapper">
+              <button class="app-btn btn" @click="nextPageOrFinish">
+                {{ nextBtnText }}
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
+      </transition>
+      <app-end-page v-if="showEndPage" :appSettings="appSettings" />
     </div>
     <div class="quiz-app__footer">
       <div class="quiz-app__footer-content">
@@ -38,18 +53,26 @@
 <script>
 import AppSurveyPage from "./components/SurveyPage.vue";
 import AppStartPage from "./components/StartPage";
+import AppEndPage from "./components/EndPage";
 import { mapState, mapGetters, mapMutations } from "vuex";
 import { nextTick } from "vue";
 
 export default {
-  components: { AppSurveyPage, AppStartPage },
+  components: { AppSurveyPage, AppStartPage, AppEndPage },
   name: "App",
+  data() {
+    return {
+      showQuestions: true,
+      showEndPage: false,
+    };
+  },
   computed: {
     ...mapState({
       appDataLoaded: (state) => state.appDataLoaded,
       surveyQuestionsPages: (state) => state.surveyQuestionsPages,
       appSettings: (state) => state.appSettings,
       userAnswers: (state) => state.userAnswers,
+      surveyСompleted: (state) => state.surveyCompleted,
     }),
     ...mapGetters(["getCurrentPage"]),
     isLastPage() {
@@ -68,8 +91,20 @@ export default {
       "toggleCustomFieldsValidate",
       "blockedPage",
       "setCurrentPageId",
+      "compliteSurvey",
     ]),
-
+    setPage(pageId) {
+      if (!this.surveyСompleted) {
+        return;
+      }
+      this.showQuestions = true;
+      this.showEndPage = false;
+      this.setCurrentPageId(pageId);
+    },
+    getEndPage() {
+      this.showQuestions = false;
+      this.showEndPage = true;
+    },
     nextPageOrFinish() {
       const currentPageId = this.getCurrentPage.id;
       this.togglePageValidate(true);
@@ -106,11 +141,15 @@ export default {
         });
         if (nextPage) {
           this.setCurrentPageId(nextPage.id);
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
+        } else {
+          this.compliteSurvey();
+          this.showQuestions = false;
+          this.showEndPage = true;
         }
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
       }
     },
   },
