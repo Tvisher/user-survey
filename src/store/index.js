@@ -5,7 +5,7 @@ import devJson from "./dev-api.js";
 
 
 const quizID = document.querySelector('#app').dataset.pollId;
-const appType = document.querySelector('#app').dataset.pollType;
+const userID = document.querySelector('#app').dataset.user;
 
 export default createStore({
   state: {
@@ -34,6 +34,9 @@ export default createStore({
     },
   },
   mutations: {
+    setStartTime(state) {
+      state.startTime = new Date();
+    },
     setSurveyQuestionsData(state, payload) {
       state.surveyQuestionsPages = payload;
       state.currentPadeId = state.surveyQuestionsPages[0].id;
@@ -76,7 +79,6 @@ export default createStore({
       if (state.surveyCompleted) {
         return
       }
-      console.log(userAnswer);
       const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
       if (questionPage.pageIsBlocked) {
         return
@@ -106,7 +108,7 @@ export default createStore({
     },
     setShowCurrentAnswer(state, value) {
       state.showCurrentAnswer = value;
-    }
+    },
 
   },
   actions: {

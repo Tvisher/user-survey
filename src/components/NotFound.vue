@@ -349,9 +349,6 @@
       </g>
     </svg>
   </div>
-  <router-link to="/" class="btn app-btn centered-btn"
-    >К настройкам</router-link
-  >
 </template>
 
 <script>

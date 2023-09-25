@@ -16,9 +16,9 @@
 
           <div
             v-if="surveyСompleted"
-            class="app-btn btn"
+            class="app-btn btn end-page-btn"
             :class="{ active: showEndPage }"
-            @click="getEndPage"
+            @click="selectEndPage"
           >
             Итоговая страницца
           </div>
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+import axios from "axios";
 import AppSurveyPage from "./components/SurveyPage.vue";
 import AppStartPage from "./components/StartPage";
 import AppEndPage from "./components/EndPage";
@@ -104,7 +105,7 @@ export default {
       this.showEndPage = false;
       this.setCurrentPageId(pageId);
     },
-    getEndPage() {
+    selectEndPage() {
       this.showQuestions = false;
       this.showEndPage = true;
     },
@@ -149,6 +150,7 @@ export default {
           this.showQuestions = false;
           this.showEndPage = true;
           this.setShowCurrentAnswer(true);
+          this.$store.dispatch("setAppDataOnServer");
         }
         window.scrollTo({
           top: 0,
@@ -165,6 +167,35 @@ export default {
       .catch((error) => {
         console.log("Ошибка:", error);
       });
+
+    const checkIsUserPassingStart = (e) => {
+      if (e.target.closest(".poll-item")) {
+        this.$store.commit("setStartTime");
+        const quizID = document.querySelector("#app").dataset.pollId;
+        const userID = document.querySelector("#app").dataset.user;
+        axios
+          .post(
+            "/bitrix/templates/quiz/startitem.php",
+            {
+              id: quizID,
+              user: userID,
+            },
+            {
+              headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+              },
+            }
+          )
+          .then(function (response) {
+            console.log("Начало прохождения!");
+            document.removeEventListener("click", checkIsUserPassingStart);
+          })
+          .catch(function (error) {
+            console.log("Ошибка:", error);
+          });
+      }
+    };
+    document.addEventListener("click", checkIsUserPassingStart);
   },
 };
 </script>
@@ -172,17 +203,21 @@ export default {
 <style lang="scss">
 .next-btn-wrapper {
   margin-top: 20px;
+
   .app-btn {
     margin-left: auto;
   }
 }
+
 #app {
   min-height: 100vh;
   padding-bottom: 0 !important;
 }
+
 * {
   font-family: Montserrat;
 }
+
 .quiz-start {
   background-color: #ecf4ff;
   padding: 20px;
@@ -208,6 +243,7 @@ export default {
   align-items: center;
   justify-content: center;
   height: 120px;
+
   .quiz-app__footer-logo {
     margin-left: 15px;
     width: 210px;
@@ -217,11 +253,25 @@ export default {
     background-position: center;
     background-size: contain;
   }
+
   .quiz-app__footer-content {
     display: flex;
   }
+
   .quiz-app__footer-text {
     margin-top: 5px;
+  }
+}
+
+.app-btn.btn.end-page-btn {
+  color: #262b31;
+  border-radius: 4px;
+  margin-left: 5px;
+  background: #fff;
+  box-shadow: 0px 2px 12px 0px rgba(37, 51, 66, 0.08);
+  &.active {
+    background-color: var(--app-color);
+    color: var(--app-text-color);
   }
 }
 </style>
