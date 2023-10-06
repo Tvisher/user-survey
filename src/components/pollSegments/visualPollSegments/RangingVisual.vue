@@ -17,7 +17,7 @@
           :key="variant.id"
           :class="{
             correct: showCurrentAnswer && correctOrderId[index] == variant.id,
-            wrong: showCurrentAnswer && correctOrderId[index] != variant.id,
+            uncorrect: showCurrentAnswer && correctOrderId[index] != variant.id,
           }"
         >
           <div class="rangin-visual__content">
@@ -245,10 +245,14 @@ export default {
 
 .rangin-visual__item {
   &.correct {
-    background-color: rgba(0, 128, 0, 0.2);
+    .rangin-visual__content::after {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%2330C02D'/%3e%3cpath d='M5 9.72414L6.48101 11.2562C6.87409 11.6629 7.52591 11.6629 7.91899 11.2562L13 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
+    }
   }
-  &.wrong {
-    background-color: rgba(255, 0, 0, 0.3);
+  &.uncorrect {
+    .rangin-visual__content::after {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%23DC1F1F'/%3e%3cpath d='M6 12L12 6' stroke='white' stroke-linecap='round'/%3e%3cpath d='M12 12L6 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
+    }
   }
   display: flex;
   align-items: center;
@@ -286,9 +290,18 @@ export default {
   z-index: 2;
   width: 100%;
   padding: 10px 20px;
+  padding-right: 25px;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease-in-out;
+  &::after {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    content: "";
+  }
 }
 .rangin-visual__btns {
   padding: 10px 20px;

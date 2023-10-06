@@ -1,5 +1,5 @@
 <template>
-  <div v-if="appDataLoaded">
+  <div v-if="appDataLoaded && !pageHasProblems">
     <div class="polls-container">
       <app-start-page :appSettings="appSettings" />
       <div class="polls-pagination">
@@ -43,12 +43,16 @@
         <app-end-page v-if="showEndPage" :appSettings="appSettings" />
       </transition>
     </div>
+
     <div class="quiz-app__footer">
       <div class="quiz-app__footer-content">
         <div class="quiz-app__footer-text">Создано в</div>
         <div class="quiz-app__footer-logo"></div>
       </div>
     </div>
+  </div>
+  <div v-if="pageHasProblems" class="page-has-errors">
+    <app-not-found />
   </div>
 </template>
 
@@ -57,16 +61,19 @@ import axios from "axios";
 import AppSurveyPage from "./components/SurveyPage.vue";
 import AppStartPage from "./components/StartPage";
 import AppEndPage from "./components/EndPage";
+import AppNotFound from "./components/NotFound.vue";
+
 import { mapState, mapGetters, mapMutations } from "vuex";
 import { nextTick } from "vue";
 
 export default {
-  components: { AppSurveyPage, AppStartPage, AppEndPage },
+  components: { AppSurveyPage, AppStartPage, AppEndPage, AppNotFound },
   name: "App",
   data() {
     return {
       showQuestions: true,
       showEndPage: false,
+      pageHasProblems: false,
     };
   },
   computed: {
@@ -165,6 +172,7 @@ export default {
       .dispatch("getAppDataFromServer")
       .then((res) => {})
       .catch((error) => {
+        this.pageHasProblems = true;
         console.log("Ошибка:", error);
       });
 
@@ -210,8 +218,8 @@ export default {
 }
 
 #app {
-  min-height: 100vh;
-  padding-bottom: 0 !important;
+  // min-height: 100vh;
+  padding: 0 !important;
 }
 
 * {
@@ -225,11 +233,13 @@ export default {
 }
 
 .polls-container {
+  padding-top: 60px;
+  padding-bottom: 100px;
+  min-height: calc(100vh - 120px);
   margin: auto;
 }
 
 .quiz-app__footer {
-  margin-top: 100px;
   z-index: 3;
   position: relative;
   transition: opacity 0.8s ease-in-out;

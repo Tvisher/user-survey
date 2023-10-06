@@ -108,20 +108,35 @@ export default {
 
 <style lang="scss">
 .v-select {
-  &.correct {
-    .vs__selected {
-      color: #34df34;
+  &.correct,
+  &.uncorrect {
+    .vs__dropdown-toggle {
+      padding-left: 46px !important;
+      position: relative;
+      &::before {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        top: 50%;
+        transform: translateY(-50%);
+        content: "";
+        left: 15px;
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
     }
     .vs__clear {
       display: none;
     }
   }
-  &.uncorrect {
-    .vs__selected {
-      color: red;
+  &.correct {
+    .vs__dropdown-toggle::before {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%2330C02D'/%3e%3cpath d='M5 9.72414L6.48101 11.2562C6.87409 11.6629 7.52591 11.6629 7.91899 11.2562L13 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
     }
-    .vs__clear {
-      display: none;
+  }
+  &.uncorrect {
+    .vs__dropdown-toggle::before {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%23DC1F1F'/%3e%3cpath d='M6 12L12 6' stroke='white' stroke-linecap='round'/%3e%3cpath d='M12 12L6 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
     }
   }
 }

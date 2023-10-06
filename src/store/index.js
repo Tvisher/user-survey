@@ -38,6 +38,8 @@ export default createStore({
       state.startTime = new Date();
     },
     setSurveyQuestionsData(state, payload) {
+      console.log('setSurveyQuestionsData', payload);
+      // state.surveyQuestionsPages = payload.filter(page => page.pollList.length > 0);
       state.surveyQuestionsPages = payload;
       state.currentPadeId = state.surveyQuestionsPages[0].id;
 

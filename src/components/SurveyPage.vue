@@ -63,4 +63,11 @@ export default {
 .poll-item__name {
   cursor: default !important;
 }
+
+.pageIsBlocked {
+  .vs__clear,
+  .vs__deselect {
+    display: none;
+  }
+}
 </style>

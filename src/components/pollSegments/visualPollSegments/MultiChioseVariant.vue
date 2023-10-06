@@ -5,6 +5,10 @@
       :class="{
         checked: checkedInputs.includes(option.id),
         correct: correctAnswerId.includes(option.id),
+        uncorrect:
+          showCurrentAnswer &&
+          hasCorrectAnswer &&
+          !correctAnswerId.includes(option.id),
       }"
       v-for="option in optionsData.optionsList"
       :key="option.id"
@@ -97,7 +101,27 @@ export default {
   background-color: var(--app-color);
 }
 
-.single-choise-visual__label.correct {
-  background-color: rgba(0, 128, 0, 0.198);
+.single-choise-visual__label {
+  position: relative;
+  padding-right: 48px;
+  &::after {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    content: "";
+  }
+  &.correct {
+    &::after {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%2330C02D'/%3e%3cpath d='M5 9.72414L6.48101 11.2562C6.87409 11.6629 7.52591 11.6629 7.91899 11.2562L13 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
+    }
+  }
+  &.uncorrect {
+    &::after {
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg width='18' height='18' viewBox='0 0 18 18' fill='none' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='18' height='18' rx='9' fill='%23DC1F1F'/%3e%3cpath d='M6 12L12 6' stroke='white' stroke-linecap='round'/%3e%3cpath d='M12 12L6 6' stroke='white' stroke-linecap='round'/%3e%3c/svg%3e ");
+    }
+  }
 }
 </style>
