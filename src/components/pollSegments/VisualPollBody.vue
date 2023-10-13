@@ -12,49 +12,52 @@
       />
     </div>
     <app-text-from-editor :editorValue="pollItemData.editorValue" />
-    <app-single-choise-variant
-      v-if="pollItemType === 'single-choice'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
-    <app-multi-choise-variant
-      v-if="pollItemType === 'multiple-choice'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
-    <app-single-select
-      v-if="pollItemType === 'drop-down-list'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
 
-    <app-multi-select
-      v-if="pollItemType === 'multiple-drop-down-list'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
+    <div class="poll-item-choise">
+      <app-single-choise-variant
+        v-if="pollItemType === 'single-choice'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
+      <app-multi-choise-variant
+        v-if="pollItemType === 'multiple-choice'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
+      <app-single-select
+        v-if="pollItemType === 'drop-down-list'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
 
-    <app-range-slider
-      v-if="pollItemType === 'range-selection'"
-      :rangeData="pollItemData.rangeData"
-      :pollItemId="pollItemId"
-    />
+      <app-multi-select
+        v-if="pollItemType === 'multiple-drop-down-list'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
 
-    <app-ranging-visual
-      v-if="pollItemType === 'ranging'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
-    <app-datapicker-visual
-      v-if="pollItemType === 'date'"
-      :dateData="pollItemData.dateData"
-      :pollItemId="pollItemId"
-    />
-    <app-custom-fields-visual
-      v-if="pollItemType === 'custom-fields'"
-      :optionsData="pollItemData.optionsData"
-      :pollItemId="pollItemId"
-    />
+      <app-range-slider
+        v-if="pollItemType === 'range-selection'"
+        :rangeData="pollItemData.rangeData"
+        :pollItemId="pollItemId"
+      />
+
+      <app-ranging-visual
+        v-if="pollItemType === 'ranging'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
+      <app-datapicker-visual
+        v-if="pollItemType === 'date'"
+        :dateData="pollItemData.dateData"
+        :pollItemId="pollItemId"
+      />
+      <app-custom-fields-visual
+        v-if="pollItemType === 'custom-fields'"
+        :optionsData="pollItemData.optionsData"
+        :pollItemId="pollItemId"
+      />
+    </div>
   </div>
 </template>
 

@@ -8,6 +8,7 @@
       :min="minToSlider"
       :max="maxToSlider"
       :direction="sliderDirection"
+      @change="changeRange"
     />
     <div class="range-slider__max">
       {{ this.rangeData.max }}
@@ -51,6 +52,17 @@ export default {
     strToNum(value) {
       return +String(value).replace(/[^0-9]/g, "");
     },
+    changeRange() {
+      this.setUserAnswer({
+        questionId: this.pollItemId,
+        userAnswer: [
+          {
+            start: this.defaultValues[0],
+            end: this.defaultValues[1],
+          },
+        ],
+      });
+    },
   },
 
   beforeMount() {
@@ -71,18 +83,16 @@ export default {
       this.defaultValues[1] = this.getCurrentAnswer(this.pollItemId)[0].end;
     }
   },
-  watch: {
-    defaultValues() {
-      this.setUserAnswer({
-        questionId: this.pollItemId,
-        userAnswer: [
-          {
-            start: this.defaultValues[0],
-            end: this.defaultValues[1],
-          },
-        ],
-      });
-    },
+  mounted() {
+    this.setUserAnswer({
+      questionId: this.pollItemId,
+      userAnswer: [
+        {
+          start: this.defaultValues[0],
+          end: this.defaultValues[1],
+        },
+      ],
+    });
   },
 };
 </script>

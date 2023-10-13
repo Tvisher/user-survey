@@ -177,7 +177,7 @@ export default {
       });
 
     const checkIsUserPassingStart = (e) => {
-      if (e.target.closest(".poll-item")) {
+      if (e.target.closest(".poll-item-choise")) {
         this.$store.commit("setStartTime");
         const quizID = document.querySelector("#app").dataset.pollId;
         const userID = document.querySelector("#app").dataset.user;
@@ -196,14 +196,19 @@ export default {
           )
           .then(function (response) {
             console.log("Начало прохождения!");
-            document.removeEventListener("click", checkIsUserPassingStart);
+            document.removeEventListener("pointerup", checkIsUserPassingStart, {
+              capture: true,
+            });
           })
           .catch(function (error) {
             console.log("Ошибка:", error);
           });
       }
     };
-    document.addEventListener("click", checkIsUserPassingStart);
+
+    document.addEventListener("pointerup", checkIsUserPassingStart, {
+      capture: true,
+    });
   },
 };
 </script>
