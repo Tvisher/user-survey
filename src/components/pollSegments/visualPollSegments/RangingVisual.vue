@@ -3,7 +3,7 @@
     <draggable
       v-model="optionsList"
       v-bind="pollItemsDragOptionsInSidebar"
-      handle=".rangin-visual__content"
+      :handle="daraggableHandler"
       @start="isDraggingOption = true"
       @end="isDraggingOption = false"
     >
@@ -127,6 +127,7 @@ export default {
     return {
       optionsList: [],
       isDraggingOption: false,
+      daraggableHandler: "",
     };
   },
   computed: {
@@ -211,6 +212,15 @@ export default {
     while (this.correctOrder) {
       sortList();
     }
+
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isMobile =
+      /mobile|iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(
+        userAgent
+      );
+    this.daraggableHandler = isMobile
+      ? ".rangin-visual__dragg"
+      : ".rangin-visual__content";
   },
 };
 </script>

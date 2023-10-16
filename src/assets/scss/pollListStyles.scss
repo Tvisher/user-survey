@@ -58,12 +58,3 @@
   align-items: center;
   justify-content: center;
 }
-
-.sidebar-item__name {
-  &::selection {
-    background-color: transparent;
-  }
-  font-size: 14px;
-  color: #202020;
-  font-weight: 400;
-}

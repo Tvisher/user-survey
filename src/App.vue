@@ -2,7 +2,7 @@
   <div v-if="appDataLoaded && !pageHasProblems">
     <div class="polls-container">
       <app-start-page :appSettings="appSettings" />
-      <div class="polls-pagination">
+      <div class="polls-pagination" :class="{ all_work: surveyСompleted }">
         <div class="polls-pagination__wrapper">
           <div
             class="polls-page-btn"
@@ -27,6 +27,35 @@
       <transition name="fade" mode="out-in">
         <div :key="getCurrentPage.id" v-if="showQuestions">
           <app-survey-page :pageData="getCurrentPage" />
+          <div class="polls-pagination__in-footer" v-if="surveyСompleted">
+            <div
+              class="polls-pagination"
+              :class="{ all_work: surveyСompleted }"
+            >
+              <div class="polls-pagination__wrapper">
+                <div
+                  class="polls-page-btn"
+                  v-for="(page, index) in surveyQuestionsPages"
+                  :key="page.id"
+                  :class="{
+                    active: page.id === getCurrentPage.id && showQuestions,
+                  }"
+                  @click="setPage(page.id)"
+                >
+                  {{ index + 1 }}
+                </div>
+
+                <div
+                  v-if="surveyСompleted"
+                  class="app-btn btn end-page-btn"
+                  :class="{ active: showEndPage }"
+                  @click="selectEndPage"
+                >
+                  Итоговая страницца
+                </div>
+              </div>
+            </div>
+          </div>
           <div
             class="polls-pagination next-btn-wrapper"
             v-if="!surveyСompleted"
@@ -172,7 +201,9 @@ export default {
       .dispatch("getAppDataFromServer")
       .then((res) => {})
       .catch((error) => {
-        this.pageHasProblems = true;
+        if (process.env.NODE_ENV !== "development") {
+          this.pageHasProblems = true;
+        }
         console.log("Ошибка:", error);
       });
 
@@ -281,12 +312,26 @@ export default {
 .app-btn.btn.end-page-btn {
   color: #262b31;
   border-radius: 4px;
-  margin-left: 5px;
+  margin-left: auto;
   background: #fff;
   box-shadow: 0px 2px 12px 0px rgba(37, 51, 66, 0.08);
   &.active {
     background-color: var(--app-color);
     color: var(--app-text-color);
+  }
+}
+
+.polls-pagination__in-footer {
+  .polls-pagination {
+    border-radius: 0;
+  }
+  display: none;
+  @media (max-width: 576px) {
+    display: block;
+    .polls-pagination__wrapper {
+      padding: 10px;
+      margin: 0;
+    }
   }
 }
 </style>

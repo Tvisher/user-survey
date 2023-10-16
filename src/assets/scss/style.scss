@@ -577,3 +577,43 @@ textarea.variant-item__filed {
     color: red;
   }
 }
+
+@import "./media";
+
+.vs__deselect {
+  flex-shrink: 0;
+}
+
+.sidebar-item__name {
+  &::selection {
+    background-color: transparent;
+  }
+  font-size: 14px;
+  color: #202020;
+  font-weight: 400;
+}
+
+.pageIsBlocked {
+  .dp__clear_icon {
+    display: none;
+  }
+}
+.vs__selected-options {
+  align-items: center;
+}
+
+.polls-page-btn {
+  opacity: 0.4;
+  cursor: not-allowed;
+  &.active {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
+
+.all_work {
+  .polls-page-btn {
+    cursor: pointer;
+    opacity: 1;
+  }
+}
