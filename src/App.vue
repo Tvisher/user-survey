@@ -23,7 +23,7 @@
             :class="{ active: showEndPage }"
             @click="selectEndPage"
           >
-            Итоговая страницца
+            Итоговая страница
           </div>
         </div>
       </div>
@@ -54,7 +54,7 @@
                   :class="{ active: showEndPage }"
                   @click="selectEndPage"
                 >
-                  Итоговая страницца
+                  Итоговая страница
                 </div>
               </div>
             </div>
