@@ -181,6 +181,8 @@ export default {
         arr[nextIndex] = temp;
       }
       swapElements(this.optionsList, index, nextIndex);
+      const newOptionList = [...this.optionsList];
+      this.optionsList = newOptionList;
     },
   },
   watch: {

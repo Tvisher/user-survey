@@ -617,3 +617,12 @@ textarea.variant-item__filed {
     opacity: 1;
   }
 }
+
+.vs__search {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100% !important;
+  height: 100%;
+  pointer-events: none;
+}

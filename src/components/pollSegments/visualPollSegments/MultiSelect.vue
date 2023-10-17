@@ -10,6 +10,7 @@
       :placeholder="placeholder"
       append-to-body
       :calculate-position="withPopper"
+      :searchable="false"
     >
       <template #no-options> Ничего не найдено </template>
     </v-select>

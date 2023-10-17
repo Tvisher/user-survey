@@ -54,7 +54,7 @@ export default {
       const userID = document.querySelector("#app").dataset.user;
       axios
         .post(
-          "/bitrix/templates/quiz/startitem.php",
+          "/local/templates/quiz/startitem.php",
           {
             id: quizID,
             user: userID,

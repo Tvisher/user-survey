@@ -5,6 +5,7 @@
     :reduce="(option) => option.id"
     v-model="selectedOptionId"
     :placeholder="placeholder"
+    :searchable="false"
     append-to-body
     :calculate-position="withPopper"
   >

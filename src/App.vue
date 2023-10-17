@@ -2,7 +2,10 @@
   <div v-if="appDataLoaded && !pageHasProblems">
     <div class="polls-container">
       <app-start-page :appSettings="appSettings" />
-      <div class="polls-pagination" :class="{ all_work: surveyСompleted }">
+      <div
+        class="polls-pagination top-polls-pagination"
+        :class="{ all_work: surveyСompleted }"
+      >
         <div class="polls-pagination__wrapper">
           <div
             class="polls-page-btn"
@@ -160,10 +163,12 @@ export default {
           const emptyAnswer = document.querySelectorAll(
             ".poll-item.questionEmptyAnswer"
           );
+          const position =
+            emptyAnswer[0].clientHeight < window.innerHeight ? "center" : "end";
           if (emptyAnswer.length > 0) {
             emptyAnswer[0].scrollIntoView({
               behavior: "smooth",
-              block: "center",
+              block: position,
             });
           }
         });
@@ -188,9 +193,12 @@ export default {
           this.setShowCurrentAnswer(true);
           this.$store.dispatch("setAppDataOnServer");
         }
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
+        nextTick().then(() => {
+          const topPagination = document.querySelector(".top-polls-pagination");
+          topPagination.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
         });
       }
     },
@@ -214,7 +222,7 @@ export default {
         const userID = document.querySelector("#app").dataset.user;
         axios
           .post(
-            "/bitrix/templates/quiz/startitem.php",
+            "/local/templates/quiz/startitem.php",
             {
               id: quizID,
               user: userID,
