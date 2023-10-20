@@ -8,7 +8,7 @@
       :min="minToSlider"
       :max="maxToSlider"
       :direction="sliderDirection"
-      @change="changeRange"
+      @update="changeRange"
     />
     <div class="range-slider__max">
       {{ this.rangeData.max }}
