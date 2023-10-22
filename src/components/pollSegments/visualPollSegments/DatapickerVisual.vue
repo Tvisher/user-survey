@@ -45,7 +45,16 @@ export default {
   },
   watch: {
     date() {
-      const selectedDate = this.date ? [this.date] : [];
+      let selectedDate;
+      if (this.isRangeDatapicker) {
+        selectedDate = this.date.reduce((acc, item) => {
+          return acc + "-" + item;
+        });
+        console.log(selectedDate.split("-"));
+      } else {
+        selectedDate = this.date ? [this.date] : [];
+      }
+
       this.setUserAnswer({
         questionId: this.pollItemId,
         userAnswer: selectedDate,
@@ -54,7 +63,11 @@ export default {
   },
   beforeMount() {
     if (this.getCurrentAnswer(this.pollItemId).length > 0) {
-      this.date = this.getCurrentAnswer(this.pollItemId)[0];
+      if (this.isRangeDatapicker) {
+        this.date = this.getCurrentAnswer(this.pollItemId)[0].split("-");
+      } else {
+        this.date = this.getCurrentAnswer(this.pollItemId)[0];
+      }
     }
   },
 };
