@@ -6,9 +6,12 @@ import devJson from "./dev-api.js";
 
 const quizID = document.querySelector('#app').dataset.pollId;
 const userID = document.querySelector('#app').dataset.user;
+const isAdmin = document.querySelector('#app').dataset.asdmin ? true : false;
 
 export default createStore({
   state: {
+    quizID,
+    isAdmin,
     appDataLoaded: false,
     showCurrentAnswer: false,
     getValidate: false,
@@ -136,7 +139,7 @@ export default createStore({
           .catch(function (error) {
             // console.log(error);
             // DEV
-            const appData = JSON.parse(devJson.resState);
+            const appData = devJson.resState;
             const surveyQuestionsData = appData.pollPages;
             commit('setSurveyQuestionsData', surveyQuestionsData);
 
@@ -152,6 +155,7 @@ export default createStore({
         const serverData = {};
         serverData.informationAboutPassage = JSON.parse(JSON.stringify(state.userAnswers));
         serverData.completionTimeInMilliseconds = new Date() - state.startTime;
+        console.log(serverData);
         axios.post('/local/templates/quiz/resultjson.php',
           {
             id: quizID,

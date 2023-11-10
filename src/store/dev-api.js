@@ -1,5 +1,373 @@
 const devJson = {
-  "resState": "{\"appId\":\"137\",\"appType\":\"survey\",\"applicationReady\":false,\"pollTypesList\":[],\"currentPageId\":\"1\",\"pagesLimit\":5,\"pollsInPageLimit\":10,\"pagesMinLength\":1,\"colors\":[],\"textColors\":[{\"name\":\"Белый\",\"value\":\"#FFFFFF\"},{\"name\":\"Чёрный\",\"value\":\"#000000\"}],\"appSettings\":{\"appTitle\":\"Тестовый опрос для создания json\",\"appDescription\":\"Товарищи! сложившаяся структура организации способствует подготовки и реализации новых предложений. Не следует, однако забывать, что рамки и место обучения кадров требуют от нас анализа системы обучения кадров, соответствует насущным потребностям. Товарищи! новая модель организационной деятельности требуют определения и уточнения позиций, занимаемых участниками в отношении поставленных задач.\",\"appPromo\":\"\",\"appFinalMessage\":\"Таким образом постоянный количественный рост и сфера нашей активности играет важную роль в формировании соответствующий условий активизации. Таким образом постоянный количественный рост и сфера нашей активности обеспечивает широкому кругу (специалистов) участие в формировании систем массового участия. С другой стороны укрепление и развитие структуры обеспечивает широкому кругу (специалистов) участие в формировании новых предложений.\",\"hasCorrectAnswers\":true,\"takeTheQuizagain\":false,\"customFinishLink\":{\"enable\":false,\"data\":{\"linkText\":\"\",\"linkUrl\":\"\"}},\"appColor\":{\"name\":\"Фиолетовый\",\"value\":\"#7213EA\"},\"appTextColor\":{\"name\":\"Белый\",\"value\":\"#FFFFFF\"},\"appLogo\":{\"name\":\"png-transparent-rick-and-morty-illustratrion-rick-sanchez-morty-smith-rick-and-morty-season-1-television-show-youtube-rick-and-morty-television-logo-computer-wallpaper-thumbnail.png\",\"path\":\"https://dev.vnutricom.ru/upload/tmp/poll/914/sgfh1ezrw377ym4fedqc49i4gi52x006.png\"},\"appQuizBg\":{}},\"pollPages\":[{\"id\":\"1\",\"pageComment\":\"Короткое текстовое описание для страницы №1\",\"pollList\":[{\"type\":\"single-choice\",\"typeName\":\"Одиночный выбор\",\"typeDescr\":\"Описание для элемента опроса Одиночный выбор\",\"data\":{\"pollImage\":{\"name\":\"e0d8ecddbdc26c17db17a7b65bc00353.jpg\",\"path\":\"https://dev.vnutricom.ru/upload/tmp/poll/754/33nwhq6nf39su0egqj6vk5uofdkfv59u.jpg\",\"stretchImage\":true},\"editorValue\":{\"ops\":[{\"insert\":\"Одиночный выбор. Правильно ответа нет\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[],\"optionsList\":[{\"id\":\"1\",\"value\":\"вариант 1\"},{\"id\":\"2\",\"value\":\"вариант 2\"},{\"id\":\"ae156fad-626d-4485-8931-0f850c825541\",\"value\":\"вариант 3\"}]}},\"id\":\"d68e75ce-6a87-422e-9c41-b8f15c53591b\"},{\"type\":\"single-choice\",\"typeName\":\"Одиночный выбор\",\"typeDescr\":\"Описание для элемента опроса Одиночный выбор\",\"data\":{\"pollImage\":{\"name\":\"e0d8ecddbdc26c17db17a7b65bc00353.jpg\",\"path\":\"https://dev.vnutricom.ru/upload/tmp/poll/754/33nwhq6nf39su0egqj6vk5uofdkfv59u.jpg\",\"stretchImage\":true},\"editorValue\":{\"ops\":[{\"insert\":\"Одиночный выбор. Правильный ответ 3\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[\"ed54a274-cf06-4c20-8b3d-2d161afa10f9\"],\"optionsList\":[{\"id\":\"1\",\"value\":\"вариант 1\"},{\"id\":\"2\",\"value\":\"вариант 2\"},{\"id\":\"ed54a274-cf06-4c20-8b3d-2d161afa10f9\",\"value\":\"вариант 3\"}]}},\"id\":\"ef63b320-4fdb-4f3f-8047-e453a0a06882\"},{\"type\":\"drop-down-list\",\"typeName\":\"Выпадающий список\",\"typeDescr\":\"Описание для элемента опроса Выпадающий список\",\"data\":{\"pollImage\":{\"name\":\"e0d8ecddbdc26c17db17a7b65bc00353.jpg\",\"path\":\"https://dev.vnutricom.ru/upload/tmp/poll/754/33nwhq6nf39su0egqj6vk5uofdkfv59u.jpg\"},\"editorValue\":{\"ops\":[{\"insert\":\"Выпадающий список. Правильно ответа \"},{\"attributes\":{\"bold\":true},\"insert\":\"нет\"},{\"insert\":\"\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"f2c71db3-a8d7-4c68-80c8-e42dfd8f3a9c\",\"value\":\"Вариант 3\"}]}},\"id\":\"b71f785d-7e51-4e7e-b1e5-d4404344c02a\"},{\"type\":\"drop-down-list\",\"typeName\":\"Выпадающий список\",\"typeDescr\":\"Описание для элемента опроса Выпадающий список\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Выпадающий список. Правильный ответ 1\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[\"1\"],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"6dead37f-b9de-49b8-8248-36810be7b415\",\"value\":\"Вариант 3\"}]}},\"id\":\"a2317fb0-dcd1-4501-a16e-1798144d1ed4\"},{\"type\":\"multiple-drop-down-list\",\"typeName\":\"Множественный вып. список\",\"typeDescr\":\"Описание для элемента опроса Множественный вып. список\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Множественный вып. список. Правильно ответа \"},{\"attributes\":{\"bold\":true},\"insert\":\"нет\"},{\"insert\":\"\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"16b4debc-0706-4e8e-8e3a-4701295b5e72\",\"value\":\"Вариант 3\"}]}},\"id\":\"e12297a9-00ea-44ea-b743-34149f9d6d10\"},{\"type\":\"multiple-drop-down-list\",\"typeName\":\"Множественный вып. список\",\"typeDescr\":\"Описание для элемента опроса Множественный вып. список\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Множественный вып. список. Правильный ответ 2\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[\"2\"],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"8b9c4d8f-03e7-4479-919c-243b2d80556b\",\"value\":\"Вариант 3\"}]}},\"id\":\"e6d0db49-1c9e-4d33-a640-4207a304798f\"},{\"type\":\"multiple-choice\",\"typeName\":\"Множественный выбор\",\"typeDescr\":\"Описание для элемента опроса Множественный выбор\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Множественный выбор. Правильно ответа \"},{\"attributes\":{\"bold\":true},\"insert\":\"нет\"},{\"insert\":\"\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"67a09e24-f800-4344-8c59-1e10e8087feb\",\"value\":\"Вариант 3\"}]}},\"id\":\"980c54bf-414d-443b-904e-f926622278e0\"},{\"type\":\"multiple-choice\",\"typeName\":\"Множественный выбор\",\"typeDescr\":\"Описание для элемента опроса Множественный выбор\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Множественный выбор. Правильный ответ 1 и 3\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[\"82312c00-162a-41a3-8cc8-620c67ac49ce\",\"1\"],\"optionsList\":[{\"id\":\"1\",\"value\":\"Вариант 1\"},{\"id\":\"2\",\"value\":\"Вариант 2\"},{\"id\":\"82312c00-162a-41a3-8cc8-620c67ac49ce\",\"value\":\"Вариант 3\"},{\"id\":\"357f492c-088e-47ef-9c5a-3e823517ef26\",\"value\":\"Вариант 4\"}]}},\"id\":\"8f5a3507-2b2a-448e-bd41-876dc9e94230\"},{\"type\":\"ranging\",\"typeName\":\"Ранжирование\",\"typeDescr\":\"Описание для элемента опроса Ранжирование\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Ранжирование\\n\"}]},\"optionsData\":{\"minOptionsLength\":2,\"maxOptionsLength\":10,\"currentAnswerId\":[],\"optionsList\":[{\"id\":\"1\",\"value\":\"вариант 1\"},{\"id\":\"2\",\"value\":\"вариант 2\"},{\"id\":\"178cac30-93b3-4f54-a7e6-36761c7c69d4\",\"value\":\"вариант 3\"},{\"id\":\"4c9d1df3-6889-45a6-a1be-0754200986fa\",\"value\":\"вариант 4\"}]}},\"id\":\"e324cdd7-6302-4107-9560-ce18170e48e0\"},{\"type\":\"range-selection\",\"typeName\":\"Выбор диапазона\",\"typeDescr\":\"Описание для элемента опроса Выбор диапазона\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Выбор диапазона от 10 до 100\\n\"}]},\"rangeData\":{\"min\":0,\"max\":3,\"defaultMin\":\"1\",\"defaultMax\":\"2\"}},\"id\":\"2ee0d481-b4e3-4b46-9cc4-396aec07f623\"}]},{\"id\":\"page-31f0ca7c-ff91-48d9-a30c-b45a9db92b4d\",\"pageComment\":\"Короткое текстовое описание для страницы №2\",\"pollList\":[{\"type\":\"date\",\"typeName\":\"Дата\",\"typeDescr\":\"Описание для элемента опроса Дата\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Дата, одиночный выбор даты\\n\"}]},\"dateData\":{\"range\":false}},\"id\":\"ff253159-71c9-4f7f-9fbe-1d0bfa274187\"},{\"type\":\"date\",\"typeName\":\"Дата\",\"typeDescr\":\"Описание для элемента опроса Дата\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Дата, диапазон выбора даты\\n\"}]},\"dateData\":{\"range\":true}},\"id\":\"154b9514-3ccb-4d7e-bc9f-a457c79bead5\"},{\"type\":\"custom-fields\",\"typeName\":\"Кастомные поля\",\"typeDescr\":\"Описание для элемента опроса Кастомные поля\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Кастомные поля, Имя\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":1,\"maxOptionsLength\":10,\"optionsList\":[{\"id\":\"1\",\"type\":\"text\",\"value\":\"Имя\"}]}},\"id\":\"bbf085fc-1f1c-4caf-acbb-a04373143f2b\"},{\"type\":\"custom-fields\",\"typeName\":\"Кастомные поля\",\"typeDescr\":\"Описание для элемента опроса Кастомные поля\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Кастомные поля, \"},{\"attributes\":{\"color\":\"#262b31\"},\"insert\":\"Телефон\"},{\"insert\":\"\\n\\n\\n\"}]},\"optionsData\":{\"minOptionsLength\":1,\"maxOptionsLength\":10,\"optionsList\":[{\"id\":\"1\",\"type\":\"phone\",\"value\":\"Телефон\"}]}},\"id\":\"620d7ac1-c730-417d-b512-33023ce264f4\"},{\"type\":\"custom-fields\",\"typeName\":\"Кастомные поля\",\"typeDescr\":\"Описание для элемента опроса Кастомные поля\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Кастомные поля, \"},{\"attributes\":{\"color\":\"#262b31\"},\"insert\":\"Email\"},{\"insert\":\"\\n\"}]},\"optionsData\":{\"minOptionsLength\":1,\"maxOptionsLength\":10,\"optionsList\":[{\"id\":\"1\",\"type\":\"email\",\"value\":\"Email\"}]}},\"id\":\"b735f5a8-2f1a-4e72-9e0a-7ca0820980c6\"},{\"type\":\"custom-fields\",\"typeName\":\"Кастомные поля\",\"typeDescr\":\"Описание для элемента опроса Кастомные поля\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Кастомные поля, \"},{\"attributes\":{\"color\":\"#262b31\"},\"insert\":\"Область текста\"},{\"insert\":\"\\n\"}]},\"optionsData\":{\"minOptionsLength\":1,\"maxOptionsLength\":10,\"optionsList\":[{\"id\":\"1\",\"type\":\"textarea\",\"value\":\"Область текста\"}]}},\"id\":\"a825c314-a094-4c10-9b0a-7f9300ac7ea9\"},{\"type\":\"custom-fields\",\"typeName\":\"Кастомные поля\",\"typeDescr\":\"Описание для элемента опроса Кастомные поля\",\"data\":{\"pollImage\":{},\"editorValue\":{\"ops\":[{\"insert\":\"Кастомные поля, Всё сразу\\n\"}]},\"optionsData\":{\"minOptionsLength\":1,\"maxOptionsLength\":10,\"optionsList\":[{\"id\":\"1\",\"type\":\"text\",\"value\":\"Имя\"},{\"id\":\"8884faa5-c24b-480b-b81e-b898a44426ca\",\"type\":\"phone\",\"value\":\"Телефон\"},{\"id\":\"9e8c4c89-4496-414a-8c8c-a8538a096ef6\",\"type\":\"email\",\"value\":\"Email\"},{\"id\":\"d5442472-aaf4-49be-bd7d-eb3e6e149de5\",\"type\":\"textarea\",\"value\":\"Сообщение\"}]}},\"id\":\"e969b6aa-3c39-488b-a991-ef4d5744649f\"}]}]}"
+  "resState": {
+    "appId": "RDF6ZjZSWGl1WjlqbVhPNncrcGYzdz09",
+    "appType": "survey",
+    "applicationReady": false,
+    "pollTypesList": [],
+    "currentPageId": "1",
+    "pagesLimit": 5,
+    "pollsInPageLimit": 10,
+    "pagesMinLength": 1,
+    "colors": [],
+    "textColors": [
+      { "name": "Белый", "value": "#FFFFFF" },
+      { "name": "Чёрный", "value": "#000000" }
+    ],
+    "appSettings": {
+      "appTitle": "Конференция InterComm",
+      "appDescription": "Пройдите экспресс-опрос",
+      "appPromo": "",
+      "appFinalMessage": "Спасибо, что воспользовались  нашим сервисом!\n\nА если хотите увидеть:\n\n•\tрезультаты опроса,\n•\tчто видит организатор опроса,\n•\tкак можно быстро его сделать,\n•\tкакие еще форматы, кроме опросов, умеет сервис, \n\nто подходите к стенду!",
+      "hasCorrectAnswers": false,
+      "takeTheQuizagain": true,
+      "customFinishLink": {
+        "enable": false,
+        "data": { "linkText": "", "linkUrl": "" }
+      },
+      "appColor": { "name": "Intercom", "value": "#FA0056" },
+      "appTextColor": { "name": "Белый", "value": "#FFFFFF" },
+      "appLogo": {},
+      "appQuizBg": {}
+    },
+    "pollPages": [
+      {
+        "id": "1",
+        "pageComment": "",
+        "pollList": [
+          {
+            "type": "single-choice",
+            "typeName": "Одиночный выбор",
+            "typeDescr": "Респондент сможет выбрать один вариант ответа из списка",
+            "data": {
+              "pollImage": {
+                "name": "sdf2.jpg",
+                "path": "https://vnutricom.ru/upload/tmp/poll/b55/s01yzvat3xx7c5nk95y5w2bdni6gy723.jpg",
+                "stretchImage": true
+              },
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Что изображено на картинке? Мы просто хотим убедиться, что вы не бот (:"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [],
+                "optionsList": [
+                  { "id": "1", "value": "Тир" },
+                  {
+                    "id": "bbb5137c-3fa0-4e52-bc7d-9ed0dffcd2b6",
+                    "value": "Зал, где сегодня проходит конференция InterComm"
+                  },
+                  {
+                    "id": "ddd1434c-2db4-4914-a796-f6cd8cf09333",
+                    "value": "Космический корабль"
+                  }
+                ]
+              }
+            },
+            "id": "d7663de7-0de9-45f9-9ac1-1a3dbca2e864"
+          },
+          {
+            "type": "drop-down-list",
+            "typeName": "Выпадающий список",
+            "typeDescr": "Респондент сможет выбрать один вариант ответа из списка, представленного в виде раскрывающегося меню",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Вы проводите опросы среди сотрудников своей компании?"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [],
+                "optionsList": [
+                  { "id": "1", "value": "Да" },
+                  { "id": "2", "value": "Нет" }
+                ]
+              }
+            },
+            "id": "2c12cb79-f663-47e5-b09c-da8a3a8d9d7d"
+          },
+          {
+            "type": "multiple-choice",
+            "typeName": "Множественный выбор",
+            "typeDescr": "Респондент сможет выбрать несколько вариантов ответов из списка",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Какие аудитории вы опрашиваете? Возможны несколько вариантов ответов:"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [],
+                "optionsList": [
+                  { "id": "1", "value": "Соискатели" },
+                  { "id": "2", "value": "Новички, недавно принятые в компанию" },
+                  {
+                    "id": "9c642a92-c7cb-4449-9aca-5b1a77175b98",
+                    "value": "Сотрудники, работающие от 6 месяцев"
+                  },
+                  {
+                    "id": "10e6aef9-bf6a-43a8-848b-9550205b6e3f",
+                    "value": "Увольняющиеся"
+                  },
+                  {
+                    "id": "60c62283-8ac5-4c46-a5cf-9c5fed5bd980",
+                    "value": "Потенциальные сотрудники (выпускники вузов и другие ЦА)"
+                  },
+                  {
+                    "id": "3e8355a8-e90f-492c-9d6f-c51c5322ed14",
+                    "value": "Внешние аудитории"
+                  }
+                ]
+              }
+            },
+            "id": "68e782fa-0af7-48a5-a9a8-c2ca324b33f5"
+          },
+          {
+            "type": "range-selection",
+            "typeName": "Выбор диапазона",
+            "typeDescr": "Респондент сможет оценить элемент или утверждение по цифровой шкале, перетягивая интерактивный ползунок",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Какое примерное количество опросов проводит ваш департамент за год?"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "rangeData": {
+                "min": 0,
+                "max": 100,
+                "defaultMin": "10",
+                "defaultMax": "80"
+              }
+            },
+            "id": "3cb404f7-e7ba-496d-af6a-ea6d4d559147"
+          },
+          {
+            "type": "ranging",
+            "typeName": "Ранжирование",
+            "typeDescr": "Респонденту необходимо распределить элементы в определенном порядке (например, по уменьшению или увеличению значимости)",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Основные проблемы, с которыми вы сталкиваетесь, проводя опросы?Поставьте в порядке важности (просто перетащите пальцем или курсором):"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [],
+                "optionsList": [
+                  {
+                    "id": "1",
+                    "value": "Доверие к результатам исследований как рядовых сотрудников, так и руководителей"
+                  },
+                  { "id": "2", "value": "Доверие к исследователям" },
+                  {
+                    "id": "cd6eb81b-0c69-4f42-bbef-35225d2bf9d9",
+                    "value": "Низкая вовлеченность сотрудников в исследования"
+                  },
+                  {
+                    "id": "c5c864b2-851b-4d57-bfe0-a565469e401e",
+                    "value": "Информирование сотрудников о необходимости пройти исследование"
+                  },
+                  {
+                    "id": "21ddbdf1-4602-4114-989f-38ed3237dbe9",
+                    "value": "Анонимность исследования"
+                  }
+                ]
+              }
+            },
+            "id": "459fd751-5e92-4237-84ef-deb13a980519"
+          },
+          {
+            "type": "ranging",
+            "typeName": "Ранжирование",
+            "typeDescr": "Респонденту необходимо распределить элементы в определенном порядке (например, по уменьшению или увеличению значимости)",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Какие параметры в опросах для вас самые важные? Поставьте в порядке важности (просто перетащите пальцем или курсором):"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [],
+                "optionsList": [
+                  { "id": "1", "value": "Количество участников" },
+                  { "id": "2", "value": "Процентный охват" },
+                  {
+                    "id": "5fe7fe7a-9ba4-4a73-bc4b-e473c52e1803",
+                    "value": "Полнота ответов"
+                  },
+                  {
+                    "id": "a0a148da-478d-442d-a41f-d2b3d131f72c",
+                    "value": "Изменение количества ответивших по сравнению с предыдущим аналогичным опросом"
+                  },
+                  {
+                    "id": "8ff81a62-8fdb-4440-8b86-91575c1bdab2",
+                    "value": "Интересные идеи от аудитории"
+                  }
+                ]
+              }
+            },
+            "id": "53bb8b58-372b-4203-b4f6-29ae928a3786"
+          },
+          {
+            "type": "custom-fields",
+            "typeName": "Кастомные поля",
+            "typeDescr": "Респондент сможет указать свои контактные данные (телефон и e-mail), а также дать короткий или развернутый ответ в произвольной форме",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Напишите, какими сервисами проведения опросов вы пользуетесь:  "
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 1,
+                "maxOptionsLength": 10,
+                "optionsList": [{ "id": "1", "type": "text", "value": "" }]
+              }
+            },
+            "id": "2efd4e04-2f0d-4efa-beb9-619d6ce6fb3a"
+          },
+          {
+            "type": "multiple-choice",
+            "typeName": "Множественный выбор",
+            "typeDescr": "Респондент сможет выбрать несколько вариантов ответов из списка",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Хотите ли вы участвовать в развитии нашего сервиса PRO-опрос? Возможны несколько вариантов ответов:"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 2,
+                "maxOptionsLength": 10,
+                "currentAnswerId": [
+                  "3105b71f-a29a-4a5b-abc5-f393143cc36b",
+                  "390d5ecd-0e44-4f43-ad7c-4efe77dbf117",
+                  "2",
+                  "1"
+                ],
+                "optionsList": [
+                  {
+                    "id": "1",
+                    "value": "ДА, хочу бесплатно протестировать и убедиться, насколько это удобно делать"
+                  },
+                  {
+                    "id": "2",
+                    "value": "ДА, хочу быть экспертом – предложить свой опросник для коллег"
+                  },
+                  {
+                    "id": "390d5ecd-0e44-4f43-ad7c-4efe77dbf117",
+                    "value": "Пока нет"
+                  },
+                  {
+                    "id": "3105b71f-a29a-4a5b-abc5-f393143cc36b",
+                    "value": "Решу позже"
+                  },
+                  {
+                    "id": "fa3869df-c694-4c4c-a8e1-d3785437e5c0",
+                    "value": "Извините, я тут по ошибке"
+                  },
+                  {
+                    "id": "09c980a4-a3b3-47af-bdb3-a6d859c1d314",
+                    "value": "Sprechen Sie Deutsch?"
+                  }
+                ]
+              }
+            },
+            "id": "08ad1734-e2d1-4a2a-98f2-df57b99667c1"
+          },
+          {
+            "type": "custom-fields",
+            "typeName": "Кастомные поля",
+            "typeDescr": "Респондент сможет указать свои контактные данные (телефон и e-mail), а также дать короткий или развернутый ответ в произвольной форме",
+            "data": {
+              "pollImage": {},
+              "editorValue": {
+                "ops": [
+                  {
+                    "attributes": { "bold": true },
+                    "insert": "Если вы ответили «ДА» в предыдущем вопросе, напишите «ДА» в этом поле, и мы свяжемся с вами:"
+                  },
+                  { "insert": "\n" }
+                ]
+              },
+              "optionsData": {
+                "minOptionsLength": 1,
+                "maxOptionsLength": 10,
+                "optionsList": [
+                  {
+                    "id": "1",
+                    "type": "text",
+                    "value": "Да? (: Напишите «да» или «нет»"
+                  },
+                  {
+                    "id": "2f585fc8-1ee6-46c8-8b2c-5766e831385f",
+                    "type": "text",
+                    "value": "Имя"
+                  },
+                  {
+                    "id": "6cb3fc74-d9fe-4d0e-a438-cb24233babd3",
+                    "type": "phone",
+                    "value": "Телефон"
+                  }
+                ]
+              }
+            },
+            "id": "6538c825-2954-4e55-885f-d989f76bcd84"
+          }
+        ]
+      }
+    ]
+  }
+
 }
 
 export default devJson;

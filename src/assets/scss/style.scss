@@ -30,6 +30,8 @@
   }
 }
 .polls-container {
+  display: flex;
+  flex-direction: column;
   max-width: 790px;
   width: 100%;
 }
@@ -625,4 +627,12 @@ textarea.variant-item__filed {
   width: 100% !important;
   height: 100%;
   pointer-events: none;
+}
+
+.multi-select .vs__selected-options .vs__deselect {
+  flex-shrink: 0;
+}
+
+.quiz-end-message {
+  white-space: pre-line;
 }
