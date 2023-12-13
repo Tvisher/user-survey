@@ -205,49 +205,63 @@ export default {
   },
 
   beforeCreate() {
+    const checkAppComplite = () => {
+      const quizID = document.querySelector("#app").dataset.pollId;
+      const userID = document.querySelector("#app").dataset.user;
+      const complitedPoll = localStorage.getItem(`${quizID}`);
+      if (complitedPoll && !this.$store.state.appSettings.takeTheQuizagain) {
+        this.showEndPage = true;
+        this.showQuestions = false;
+        return;
+      }
+      const checkIsUserPassingStart = (e) => {
+        if (e.target.closest(".poll-item-choise")) {
+          this.$store.commit("setStartTime");
+          axios
+            .post(
+              "/local/templates/quiz/startitem.php",
+              {
+                id: quizID,
+                user: userID,
+              },
+              {
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+                },
+              }
+            )
+            .then(function (response) {
+              console.log("Начало прохождения!");
+              document.removeEventListener(
+                "pointerup",
+                checkIsUserPassingStart,
+                {
+                  capture: true,
+                }
+              );
+            })
+            .catch(function (error) {
+              console.log("Ошибка:", error);
+            });
+        }
+        document.addEventListener("pointerup", checkIsUserPassingStart, {
+          capture: true,
+        });
+      };
+    };
+
     this.$store
       .dispatch("getAppDataFromServer")
-      .then((res) => {})
+      .then((res) => {
+        checkAppComplite();
+      })
       .catch((error) => {
         if (process.env.NODE_ENV !== "development") {
           this.pageHasProblems = true;
         }
+        checkAppComplite();
         console.log("Ошибка:", error);
       });
-
-    const checkIsUserPassingStart = (e) => {
-      if (e.target.closest(".poll-item-choise")) {
-        this.$store.commit("setStartTime");
-        const quizID = document.querySelector("#app").dataset.pollId;
-        const userID = document.querySelector("#app").dataset.user;
-        axios
-          .post(
-            "/local/templates/quiz/startitem.php",
-            {
-              id: quizID,
-              user: userID,
-            },
-            {
-              headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-              },
-            }
-          )
-          .then(function (response) {
-            console.log("Начало прохождения!");
-            document.removeEventListener("pointerup", checkIsUserPassingStart, {
-              capture: true,
-            });
-          })
-          .catch(function (error) {
-            console.log("Ошибка:", error);
-          });
-      }
-    };
-
-    document.addEventListener("pointerup", checkIsUserPassingStart, {
-      capture: true,
-    });
   },
 };
 </script>

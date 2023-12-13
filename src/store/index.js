@@ -6,7 +6,8 @@ import devJson from "./dev-api.js";
 
 const quizID = document.querySelector('#app').dataset.pollId;
 const userID = document.querySelector('#app').dataset.user;
-const isAdmin = document.querySelector('#app').dataset.asdmin ? true : false;
+const isAdmin = document.querySelector('#app').hasAttribute('data-admin') ? true : false;
+
 
 export default createStore({
   state: {
@@ -52,7 +53,7 @@ export default createStore({
             const hasCurrentAnswers = item.data.hasOwnProperty('optionsData') && item.data.optionsData.hasOwnProperty('currentAnswerId') && item.data.optionsData.currentAnswerId.length > 0;
             let currentAnswers = hasCurrentAnswers ? item.data.optionsData.currentAnswerId : [];
             let optionsList = item.data.hasOwnProperty('optionsData') ? item.data.optionsData.optionsList : [];
-            if (item.type === 'ranging') {
+            if (item.type === 'ranging' && item.data.optionsData.isHasCorrectListAnswers) {
               currentAnswers = item.data.optionsData.optionsList.map(item => item.id);
             }
             return {
@@ -114,7 +115,13 @@ export default createStore({
     setShowCurrentAnswer(state, value) {
       state.showCurrentAnswer = value;
     },
-
+    setPreviousWalkthrough: (state, newState) => {
+      for (let key in newState) {
+        state[key] = newState[key]
+      }
+      document.body.style.setProperty("--app-color", state.appSettings.appColor.value);
+      document.body.style.setProperty("--app-text-color", state.appSettings.appTextColor.value);
+    },
   },
   actions: {
     getAppDataFromServer({ commit }) {
@@ -129,22 +136,33 @@ export default createStore({
             // console.log(response.data);
             const appData = JSON.parse(response.data.resState);
             const surveyQuestionsData = appData.pollPages;
-            commit('setSurveyQuestionsData', surveyQuestionsData);
-
             const appSettings = appData.appSettings;
-            commit('setSurveyAppSettings', appSettings);
+
+            const complitedPoll = localStorage.getItem(`${quizID}`);
+            if (!appSettings.takeTheQuizagain && complitedPoll) {
+              commit('setPreviousWalkthrough', JSON.parse(complitedPoll));
+            } else {
+              if (complitedPoll) localStorage.removeItem(`${quizID}`);
+              commit('setSurveyQuestionsData', surveyQuestionsData);
+              commit('setSurveyAppSettings', appSettings);
+            }
             resolve(response);
 
           })
           .catch(function (error) {
-            // console.log(error);
             // DEV
-            const appData = devJson.resState;
+            const appData = devJson;
             const surveyQuestionsData = appData.pollPages;
-            commit('setSurveyQuestionsData', surveyQuestionsData);
-
             const appSettings = appData.appSettings;
-            commit('setSurveyAppSettings', appSettings);
+
+            const complitedPoll = localStorage.getItem(`${quizID}`);
+            if (!appSettings.takeTheQuizagain && complitedPoll) {
+              commit('setPreviousWalkthrough', JSON.parse(complitedPoll));
+            } else {
+              if (complitedPoll) localStorage.removeItem(`${quizID}`);
+              commit('setSurveyQuestionsData', surveyQuestionsData);
+              commit('setSurveyAppSettings', appSettings);
+            }
             reject(error);
           });
       });
@@ -155,7 +173,9 @@ export default createStore({
         const serverData = {};
         serverData.informationAboutPassage = JSON.parse(JSON.stringify(state.userAnswers));
         serverData.completionTimeInMilliseconds = new Date() - state.startTime;
-        console.log(serverData);
+        if (!state.appSettings.takeTheQuizagain) {
+          localStorage.setItem(`${state.quizID}`, JSON.stringify(state));
+        }
         axios.post('/local/templates/quiz/resultjson.php',
           {
             id: quizID,

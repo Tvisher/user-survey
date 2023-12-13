@@ -15,10 +15,7 @@
           class="rangin-visual__item"
           v-for="(variant, index) in optionsList"
           :key="variant.id"
-          :class="{
-            correct: showCurrentAnswer && correctOrderId[index] == variant.id,
-            uncorrect: showCurrentAnswer && correctOrderId[index] != variant.id,
-          }"
+          :class="showClass(variant, index)"
         >
           <div class="rangin-visual__content">
             <div class="rangin-visual__dragg">
@@ -183,6 +180,18 @@ export default {
       swapElements(this.optionsList, index, nextIndex);
       const newOptionList = [...this.optionsList];
       this.optionsList = newOptionList;
+    },
+    showClass(variant, index) {
+      if (!this.optionsData.isHasCorrectListAnswers) {
+        return;
+      } else {
+        return {
+          correct:
+            this.showCurrentAnswer && this.correctOrderId[index] == variant.id,
+          uncorrect:
+            this.showCurrentAnswer && this.correctOrderId[index] != variant.id,
+        };
+      }
     },
   },
   watch: {
