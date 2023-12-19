@@ -244,10 +244,10 @@ export default {
               console.log("Ошибка:", error);
             });
         }
-        document.addEventListener("pointerup", checkIsUserPassingStart, {
-          capture: true,
-        });
       };
+      document.addEventListener("pointerup", checkIsUserPassingStart, {
+        capture: true,
+      });
     };
 
     this.$store
