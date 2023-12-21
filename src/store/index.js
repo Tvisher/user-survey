@@ -13,6 +13,7 @@ export default createStore({
   state: {
     quizID,
     isAdmin,
+    startId: null,
     appDataLoaded: false,
     showCurrentAnswer: false,
     getValidate: false,
@@ -122,6 +123,10 @@ export default createStore({
       document.body.style.setProperty("--app-color", state.appSettings.appColor.value);
       document.body.style.setProperty("--app-text-color", state.appSettings.appTextColor.value);
     },
+
+    setStartId(state, startId) {
+      state.startId = startId;
+    }
   },
   actions: {
     getAppDataFromServer({ commit }) {
@@ -176,8 +181,11 @@ export default createStore({
         if (!state.appSettings.takeTheQuizagain) {
           localStorage.setItem(`${state.quizID}`, JSON.stringify(state));
         }
+        const startId = state.startId;
+        console.log(serverData);
         axios.post('/local/templates/quiz/resultjson.php',
           {
+            startId,
             id: quizID,
             user: userID,
             json: serverData,

@@ -135,6 +135,7 @@ export default {
       "setCurrentPageId",
       "compliteSurvey",
       "setShowCurrentAnswer",
+      "setStartId",
     ]),
     setPage(pageId) {
       if (!this.surveyСompleted) {
@@ -230,8 +231,9 @@ export default {
                 },
               }
             )
-            .then(function (response) {
+            .then((res) => {
               console.log("Начало прохождения!");
+              this.setStartId(res.data);
               document.removeEventListener(
                 "pointerup",
                 checkIsUserPassingStart,
@@ -240,7 +242,7 @@ export default {
                 }
               );
             })
-            .catch(function (error) {
+            .catch((error) => {
               console.log("Ошибка:", error);
             });
         }
