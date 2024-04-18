@@ -5,14 +5,14 @@
       questionEmptyAnswer: showError,
     }"
   >
-    <div class="poll-item__head">
+    <!-- <div class="poll-item__head">
       <div class="poll-item__head-wrapper">
         <div class="poll-item__name">
           <div class="poll-item__num">{{ indexNumber }}</div>
           <div class="poll-item__title">{{ pollItemName }}</div>
         </div>
       </div>
-    </div>
+    </div> -->
     <app-visual-poll-body
       :pollItemId="pollItemId"
       :pollItemType="pollItemType"

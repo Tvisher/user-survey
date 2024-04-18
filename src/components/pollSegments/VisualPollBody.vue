@@ -1,6 +1,6 @@
 <template>
   <div class="poll-body">
-    <hr />
+    <!-- <hr /> -->
     <div
       class="poll-body__image-block"
       v-if="isHasImageInPoll"

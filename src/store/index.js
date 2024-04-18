@@ -35,7 +35,11 @@ export default createStore({
     questionIsHasAnswer: (state) => questionId => {
       const questionPage = state.userAnswers.find(page => page.pageData.find(answ => answ.questionId === questionId));
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
-      return question.userAnswer.length > 0
+      if (question.questionType == "single-choice") {
+        return question.userAnswer[0] && question.userAnswer[0].value.length > 0
+      } else {
+        return question.userAnswer.length > 0
+      }
     },
   },
   mutations: {
@@ -82,7 +86,8 @@ export default createStore({
       state.appDataLoaded = true;
     },
 
-    setUserAnswer(state, { questionId, userAnswer }) {
+    setUserAnswer(state, { questionId, userAnswer, customAnswerValue }) {
+      console.log(customAnswerValue);
       if (state.surveyCompleted) {
         return
       }
@@ -91,11 +96,27 @@ export default createStore({
         return
       }
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
-      if (typeof userAnswer == 'string') {
-        question.userAnswer = [userAnswer];
+
+      if (question.questionType === "single-choice") {
+        console.log(question);
+        let answerValue;
+        if (userAnswer == 'custom-answer') {
+          answerValue = customAnswerValue
+        } else {
+          answerValue = question.optionsList.find(el => el.id === userAnswer).value;
+        }
+        question.userAnswer = [{
+          id: userAnswer,
+          value: answerValue
+        }];
       } else {
-        question.userAnswer = [...userAnswer];
+        if (typeof userAnswer == 'string') {
+          question.userAnswer = [userAnswer];
+        } else {
+          question.userAnswer = [...userAnswer];
+        }
       }
+
     },
 
     togglePageValidate(state, value) {
@@ -138,7 +159,7 @@ export default createStore({
           }
         })
           .then(function (response) {
-            // console.log(response.data);
+            console.log(response.data);
             const appData = JSON.parse(response.data.resState);
             const surveyQuestionsData = appData.pollPages;
             const appSettings = appData.appSettings;
@@ -190,7 +211,7 @@ export default createStore({
             }
           })
         });
-
+        console.log(serverData);
         axios.post('/local/templates/quiz/resultjson.php',
           {
             startId,

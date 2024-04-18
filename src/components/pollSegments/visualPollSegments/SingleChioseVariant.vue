@@ -22,6 +22,30 @@
       />
       <p class="single-choise-visual__text">{{ option.value }}</p>
     </label>
+
+    <label
+      v-if="
+        optionsData.hasOwnProperty('hasCustomAnswer') &&
+        optionsData.hasCustomAnswer === true
+      "
+      class="single-choise-visual__label custom-user-answer"
+      :class="{ checked: checkedInputId === 'custom-answer' }"
+    >
+      <span style="font-size: 14px">Ваш вариант ответа</span>
+      <input
+        class="single-choise-visual__input"
+        type="radio"
+        :name="pollItemId"
+        @input="getChecket('custom-answer')"
+      />
+      <input
+        type="text"
+        class="variant-item__filed"
+        @focus="setCustomVariant"
+        @input="getChecket('custom-answer')"
+        v-model.trim="customAnswerValue"
+      />
+    </label>
   </div>
 </template>
 
@@ -36,6 +60,7 @@ export default {
   data() {
     return {
       checkedInputId: "",
+      customAnswerValue: "",
     };
   },
   computed: {
@@ -64,18 +89,37 @@ export default {
       this.setUserAnswer({
         questionId: this.pollItemId,
         userAnswer: inputId,
+        customAnswerValue: this.customAnswerValue,
       });
+    },
+    setCustomVariant() {
+      this.getChecket("custom-answer");
     },
   },
   beforeMount() {
-    if (this.getCurrentAnswer(this.pollItemId).length > 0) {
-      this.checkedInputId = this.getCurrentAnswer(this.pollItemId)[0];
+    // if (this.getCurrentAnswer(this.pollItemId).length > 0) {
+    //   this.checkedInputId = this.getCurrentAnswer(this.pollItemId)[0].id;
+    // }
+    const afterEndAnswer = this.getCurrentAnswer(this.pollItemId)[0];
+    if (afterEndAnswer && afterEndAnswer.id) {
+      this.checkedInputId = afterEndAnswer.id;
+      if (afterEndAnswer.id === "custom-answer") {
+        this.customAnswerValue = afterEndAnswer.value;
+      }
     }
   },
 };
 </script>
 
 <style lang="scss">
+.custom-user-answer {
+  display: flex;
+  flex-direction: column;
+  .variant-item__filed {
+    position: relative;
+    z-index: 2;
+  }
+}
 .single-choise-visual,
 .multiple-choise-visual {
   display: flex;
