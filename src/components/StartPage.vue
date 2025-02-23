@@ -35,6 +35,15 @@
         </svg>
       </a>
     </div>
+    <div
+      class="quiz-start__slider"
+      v-if="headSliderData.list.length > 0"
+      :class="{
+        'stretch-slides': headSliderData.stretchSlides,
+      }"
+    >
+      <AppSlider :slides="headSliderData.list" />
+    </div>
     <div class="quiz-start__descr">{{ appDescription }}</div>
   </div>
 </template>
@@ -42,6 +51,7 @@
 <script>
 import axios from "axios";
 import { mapState } from "vuex";
+import AppSlider from "./pollSegments/AppSlider";
 
 export default {
   props: {
@@ -51,6 +61,7 @@ export default {
     ...mapState({
       isAdmin: (state) => state.isAdmin,
       quizID: (state) => state.quizID,
+      headSliderData: (state) => state.appSettings.appHeadSlider,
     }),
     appLogo() {
       const appLogoPath = this.appSettings.appLogo.path;
@@ -107,10 +118,32 @@ export default {
         });
     },
   },
+  components: { AppSlider },
 };
 </script>
 
 <style lang="scss">
+.quiz-start__slider {
+  margin: 20px 0;
+}
+.stretch-slides {
+  border-radius: 8px;
+  overflow: hidden;
+  .slide-image img {
+    object-fit: cover;
+  }
+}
+.slide-image {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 400px;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: #fff;
+  }
+}
 .quiz-start {
   border-radius: 8px;
   padding: 45px;

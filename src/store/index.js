@@ -47,7 +47,7 @@ export default createStore({
       state.startTime = new Date();
     },
     setSurveyQuestionsData(state, payload) {
-      console.log('setSurveyQuestionsData', payload);
+      // console.log('setSurveyQuestionsData', payload);
       // state.surveyQuestionsPages = payload.filter(page => page.pollList.length > 0);
       state.surveyQuestionsPages = payload;
       state.currentPadeId = state.surveyQuestionsPages[0].id;
@@ -67,6 +67,7 @@ export default createStore({
               optionsList,
               correctAnswer: currentAnswers,
               userAnswer: [],
+              parentInfo: item,
             }
           });
           return {
@@ -87,7 +88,6 @@ export default createStore({
     },
 
     setUserAnswer(state, { questionId, userAnswer, customAnswerValue }) {
-      console.log(customAnswerValue);
       if (state.surveyCompleted) {
         return
       }
@@ -98,7 +98,6 @@ export default createStore({
       const question = questionPage.pageData.find(answ => answ.questionId === questionId);
 
       if (question.questionType === "single-choice") {
-        console.log(question);
         let answerValue;
         if (userAnswer == 'custom-answer') {
           answerValue = customAnswerValue
@@ -109,7 +108,22 @@ export default createStore({
           id: userAnswer,
           value: answerValue
         }];
-      } else {
+      }
+      else if (question.questionType === "multiple-choice") {
+        question.userAnswer = userAnswer.map(answerId => {
+          let answerValue;
+          if (answerId == 'custom-answer') {
+            answerValue = customAnswerValue;
+          } else {
+            answerValue = question.optionsList.find(el => el.id == answerId).value;
+          }
+          return {
+            id: answerId,
+            value: answerValue
+          }
+        });
+      }
+      else {
         if (typeof userAnswer == 'string') {
           question.userAnswer = [userAnswer];
         } else {
@@ -159,7 +173,7 @@ export default createStore({
           }
         })
           .then(function (response) {
-            console.log(response.data);
+            // console.log(response.data);
             const appData = JSON.parse(response.data.resState);
             const surveyQuestionsData = appData.pollPages;
             const appSettings = appData.appSettings;
@@ -206,8 +220,50 @@ export default createStore({
 
         serverData.informationAboutPassage.forEach(item => {
           item.pageData.forEach(el => {
+            if (el.questionType === "single-choice" && el.parentInfo.data.optionsData.hasCustomAnswer) {
+              el.optionsList.push({
+                id: "custom-answer",
+                value: ""
+              });
+              if (el.userAnswer[0].id === "custom-answer") {
+                el.optionsList.find(el => el.id == "custom-answer").value = el.userAnswer[0].value;
+              }
+            }
+
+
+            if (el.questionType === "multiple-choice") {
+              if (el.parentInfo.data.optionsData.hasCustomAnswer) {
+                el.optionsList.push({
+                  id: "custom-answer",
+                  value: ""
+                });
+                const customAsnwerOption = el.userAnswer.find(el => el.id == 'custom-answer');
+                if (customAsnwerOption) {
+                  el.optionsList.find(el => el.id == "custom-answer").value = customAsnwerOption.value;
+                }
+              }
+
+              el.userAnswer = el.userAnswer.map(answ => answ.id);
+            }
+
+
+
+            if (el.questionType === "single-choice") {
+              el.userAnswer = [el.userAnswer[0].id];
+            }
+
             if (el.questionType === "ranging" && el.correctAnswer.length < 1) {
               el.correctAnswer = el.optionsList.map(option => option.id)
+            }
+            if (el.questionType === "custom-fields") {
+              el.userAnswer.forEach(el => {
+                if (el.type === "phone" && el.answer == "+7(___)___-__-__") {
+                  el.answer = 'Нет ответа';
+                }
+                if (!el.answer.length) {
+                  el.answer = 'Нет ответа'
+                }
+              });
             }
           })
         });
@@ -225,7 +281,7 @@ export default createStore({
             }
           })
           .then(function (response) {
-            console.log(response);
+            // console.log(response);
             resolve(response);
           })
           .catch(function (error) {

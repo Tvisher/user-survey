@@ -70,9 +70,12 @@
 
 <script>
 function checkMultiVatiants(userAnswer, correctAnswer) {
-  const matchingElements = userAnswer.filter((item) =>
-    correctAnswer.includes(item)
-  );
+  const matchingElements = userAnswer.filter((item) => {
+    if (item.hasOwnProperty("id")) {
+      return correctAnswer.includes(item.id);
+    }
+    return correctAnswer.includes(item);
+  });
   return matchingElements.length > correctAnswer.length / 2;
 }
 
@@ -137,10 +140,10 @@ export default {
             item.correctAnswer.length > 0
         )
         .map((item) => {
-          if (
-            item.questionType == "single-choice" ||
-            item.questionType == "drop-down-list"
-          ) {
+          if (item.questionType == "single-choice") {
+            return item.userAnswer[0].id == item.correctAnswer[0];
+          }
+          if (item.questionType == "drop-down-list") {
             return item.userAnswer[0] == item.correctAnswer[0];
           }
           if (

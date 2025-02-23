@@ -3,7 +3,13 @@
     class="custom-field-item"
     v-for="(field, index) in customFields"
     :key="field.id"
-    :class="{ 'error-field': !field.filled && getValidate }"
+    :class="{
+      'error-field':
+        getValidate &&
+        !field.filled &&
+        field.hasOwnProperty('req') &&
+        field.req,
+    }"
   >
     <span class="editor-descr" v-if="field.value">{{ field.value }}</span>
     <label class="variant-item__label" v-if="field.type === 'phone'">
@@ -89,16 +95,14 @@ export default {
   methods: {
     removeErr(e) {
       const errorField = e.target.closest(".error-field");
-      // if (errorField) {
-      //   errorField.classList.remove("error-field");
-      // }
     },
     onAcceptPhone(e, id) {
       const currentField = this.customFields.find((field) => field.id === id);
       const phoneNumber = e.detail.value.trim();
       currentField.answer = phoneNumber;
       const phoneNumberOnlyNums = String(phoneNumber).replace(/[^0-9]/g, "");
-      phoneNumberOnlyNums.length < 11
+      phoneNumberOnlyNums.length < 11 ||
+      (currentField.hasOwnProperty("req") && !currentField.req)
         ? (currentField.filled = false)
         : (currentField.filled = true);
     },
@@ -106,7 +110,8 @@ export default {
       const emailValue = e.target.value.trim();
       const currentField = this.customFields.find((field) => field.id === id);
       currentField.answer = emailValue;
-      validateEmail(emailValue)
+      validateEmail(emailValue) ||
+      (currentField.hasOwnProperty("req") && !currentField.req)
         ? (currentField.filled = true)
         : (currentField.filled = false);
     },
@@ -114,8 +119,10 @@ export default {
     textFieldCheck(e, id) {
       const textValue = e.target.value.trim();
       const currentField = this.customFields.find((field) => field.id === id);
+      console.log(currentField);
       currentField.answer = textValue;
-      textValue.length > 0
+      textValue.length > 0 ||
+      (currentField.hasOwnProperty("req") && !currentField.req)
         ? (currentField.filled = true)
         : (currentField.filled = false);
     },
@@ -124,21 +131,30 @@ export default {
   watch: {
     customFields: {
       handler() {
-        const allFieldsValid = this.customFields
-          .map((item) => item.filled)
-          .every((item) => item === true);
-        if (allFieldsValid) {
+        let allFieldsValid = this.customFields.map((item) => {
+          if (item.hasOwnProperty("req") && !item.req) {
+            return true;
+          }
+          return item.filled;
+        });
+
+        const pollFildsFilledLength = allFieldsValid.reduce((acc, item) => {
+          if (!item) {
+            acc++;
+          }
+          return acc;
+        }, 0);
+
+        if (!pollFildsFilledLength) {
           this.setUserAnswer({
             questionId: this.pollItemId,
             userAnswer: [...this.customFields],
           });
-          // this.setCustomFildsValid(true);
         } else {
           this.setUserAnswer({
             questionId: this.pollItemId,
             userAnswer: [],
           });
-          // this.setCustomFildsValid(false);
         }
       },
       deep: true,
@@ -150,12 +166,15 @@ export default {
       this.customFields = [...this.getCurrentAnswer(this.pollItemId)];
     } else {
       this.customFields = this.optionsData.optionsList.map((item) => {
+        const req = item.hasOwnProperty("req") ? item.req : false;
+        // console.log(req);
         return {
           id: item.id,
           type: item.type,
           value: item.value,
           answer: "",
           filled: false,
+          req,
         };
       });
     }

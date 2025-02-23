@@ -1,4 +1,16 @@
 @media (max-width: 576px) {
+  .multiple-custom-user-answer__wrapper {
+    padding-left: 25px;
+  }
+  .multiple-custom-user-answer {
+    padding-right: 20px !important;
+  }
+  .multiple-custom-user-answer__wrapper::after {
+    left: 14px;
+  }
+  .multiple-custom-user-answer__wrapper::before {
+    left: 10px;
+  }
   .poll-item {
     padding: 20px;
     &:last-child {

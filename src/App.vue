@@ -79,7 +79,11 @@
     <div class="quiz-app__footer">
       <div class="quiz-app__footer-content">
         <div class="quiz-app__footer-text">Создано в</div>
-        <div class="quiz-app__footer-logo"></div>
+        <a
+          href="https://vnutricom.ru/lk/poll/"
+          target="_blank"
+          class="quiz-app__footer-logo"
+        ></a>
       </div>
     </div>
   </div>
@@ -156,9 +160,12 @@ export default {
       const currentPage = this.userAnswers.find(
         (page) => page.pageId === currentPageId
       );
-      const pageHasAllAnswers = currentPage.pageData.every(
-        (answer) => answer.userAnswer.length > 0
-      );
+      const pageHasAllAnswers = currentPage.pageData.every((answer) => {
+        if (answer.questionType === "single-choice") {
+          return answer.userAnswer[0] && answer.userAnswer[0].value.length > 0;
+        }
+        return answer.userAnswer.length > 0;
+      });
       if (!pageHasAllAnswers) {
         nextTick().then(() => {
           const emptyAnswer = document.querySelectorAll(
@@ -269,6 +276,9 @@ export default {
 </script>
 
 <style lang="scss">
+.top-polls-pagination {
+  display: none;
+}
 .next-btn-wrapper {
   margin-top: 20px;
 
